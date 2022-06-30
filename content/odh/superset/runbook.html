@@ -409,13 +409,8 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../observatorium/loki/add_loki_grafana_datasource.html">
-     Add a Loki Data Source in OperateFirst Grafana
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../observatorium/loki/README.html">
-     Loki Access
+     Loki
     </a>
    </li>
    <li class="toctree-l2">
@@ -674,11 +669,45 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../notebooks/README.html">
-   Notebooks
+  <a class="reference internal" href="../../opentelemetry-collector/README.html">
+   OpenTelemetry Collector
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
   <label for="toctree-checkbox-20">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../opentelemetry-collector/using-opentelemetry-collector.html">
+     Collecting OpenTelemetry data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../jaeger/README.html">
+   Jaeger
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+  <label for="toctree-checkbox-21">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../jaeger/using-distributed-tracing-jaeger.html">
+     Jaeger for visualizing traces
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../notebooks/README.html">
+   Notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+  <label for="toctree-checkbox-22">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -704,8 +733,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../../templates/README.html">
    Templates
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
-  <label for="toctree-checkbox-21">
+  <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+  <label for="toctree-checkbox-23">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -1082,10 +1111,10 @@ edit this user’s name accordingly.</p>
 <li><p>Superset Admin</p></li>
 </ul>
 <p>Resolution:</p>
-<p>Go to <code class="docutils literal notranslate"><span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">users</span> <span class="pre">-&gt;</span> <span class="pre">Edit</span> <span class="pre">Public</span> <span class="pre">role</span> <span class="pre">-&gt;</span> <span class="pre">Permissions</span> <span class="pre">-&gt;</span> <span class="pre">Select</span> <span class="pre">datasource</span> <span class="pre">drop</span> <span class="pre">down.</span></code></p>
+<p>Go to <code class="docutils literal notranslate"><span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">Roles</span> <span class="pre">-&gt;</span> <span class="pre">Edit</span> <span class="pre">Public</span> <span class="pre">role</span> <span class="pre">-&gt;</span> <span class="pre">Permissions</span> <span class="pre">-&gt;</span> <span class="pre">Select</span> <span class="pre">datasource</span> <span class="pre">drop</span> <span class="pre">down</span></code></p>
 <p>The datasource in the drop down should correspond to the one mentioned in the error. The name may not be exact, but
 will likely be of the form: <code class="docutils literal notranslate"><span class="pre">datasource</span> <span class="pre">access</span> <span class="pre">on</span> <span class="pre">[DATABASE].[$YOUR_DATASOURCE](id:##)</span></code> example:
-<code class="docutils literal notranslate"><span class="pre">datasource</span> <span class="pre">access</span> <span class="pre">on</span> <span class="pre">[Trino].[thoth_support_issues](id:83</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">datasource</span> <span class="pre">access</span> <span class="pre">on</span> <span class="pre">[Trino].[thoth_support_issues](id:83)</span></code></p>
 </section>
 </section>
 </section>
