@@ -966,15 +966,15 @@ title="Print to PDF"
 <h3>Login via vault CLI and create secret<a class="headerlink" href="#login-via-vault-cli-and-create-secret" title="Permalink to this headline">#</a></h3>
 <p>Login to a cluster your namespace belongs to with <code class="docutils literal notranslate"><span class="pre">oc</span> <span class="pre">login</span></code>.</p>
 <p>Get the service account token with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">SA_TOKEN</span><span class="o">=</span><span class="k">$(</span>oc sa get-token <span class="si">${</span><span class="nv">service_account</span><span class="si">}</span> -n <span class="si">${</span><span class="nv">namespace</span><span class="si">}</span><span class="k">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">SA_TOKEN</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>sa<span class="w"> </span>get-token<span class="w"> </span><span class="si">${</span><span class="nv">service_account</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">namespace</span><span class="si">}</span><span class="k">)</span>
 </pre></div>
 </div>
 <p>Set the vault instance address to our instance by exporting the <code class="docutils literal notranslate"><span class="pre">VAULT_ADDR</span></code> environmental variable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">VAULT_ADDR</span><span class="o">=</span>https://vault-ui-vault.apps.smaug.na.operate-first.cloud
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_ADDR</span><span class="o">=</span>https://vault-ui-vault.apps.smaug.na.operate-first.cloud
 </pre></div>
 </div>
 <p>Get client token with vault cli using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault write auth/<span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s/login <span class="nv">role</span><span class="o">=</span>&lt;existing_or_created_role&gt; <span class="nv">jwt</span><span class="o">=</span><span class="nv">$SA_TOKEN</span> -format<span class="o">=</span>json <span class="p">|</span> jq -r <span class="s1">&#39;.auth.client_token&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>write<span class="w"> </span>auth/<span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s/login<span class="w"> </span><span class="nv">role</span><span class="o">=</span>&lt;existing_or_created_role&gt;<span class="w"> </span><span class="nv">jwt</span><span class="o">=</span><span class="nv">$SA_TOKEN</span><span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.auth.client_token&#39;</span>
 </pre></div>
 </div>
 <p>This is the only time you will see the token, unless you generate a new one. Make sure you save it in a safe place for future use.</p>

@@ -915,7 +915,7 @@ title="Print to PDF"
 <section id="i-want-to-know-what-is-consuming-most-of-the-space-on-my-pvc">
 <h2>I want to know what is consuming most of the space on my PVC<a class="headerlink" href="#i-want-to-know-what-is-consuming-most-of-the-space-on-my-pvc" title="Permalink to this headline">#</a></h2>
 <p>Start your notebook server, go into your <code class="docutils literal notranslate"><span class="pre">terminal</span></code>, type the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>du -h --max-depth<span class="o">=</span><span class="m">2</span> . <span class="p">|</span> sort -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-h<span class="w"> </span>--max-depth<span class="o">=</span><span class="m">2</span><span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-h
 </pre></div>
 </div>
 <p>This should display a list of folders on your PVC sorted by their size.</p>

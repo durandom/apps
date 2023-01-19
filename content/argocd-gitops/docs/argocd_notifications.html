@@ -936,7 +936,7 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>Annotations can be added manually in a application manifest, or use the <code class="docutils literal notranslate"><span class="pre">oc</span> <span class="pre">patch</span></code>  command:</p></li>
 </ul>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>oc patch app &lt;app_name&gt; -n &lt;namespace -p <span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;: {&quot;notifications.argoproj.io/subscribe.on-sync-succeeded.github&quot;:&quot;&quot;}}}&#39;</span> --type merge
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>oc<span class="w"> </span>patch<span class="w"> </span>app<span class="w"> </span>&lt;app_name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;: {&quot;notifications.argoproj.io/subscribe.on-sync-succeeded.github&quot;:&quot;&quot;}}}&#39;</span><span class="w"> </span>--type<span class="w"> </span>merge
 </pre></div>
 </div>
 <ul class="simple">
@@ -972,15 +972,15 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>Example:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Application</span><span class="w"></span>
-<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">annotations</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">notifications.argoproj.io/subscribe.on-sync-succeeded.slack</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;argocd-notifications&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">notifications.argoproj.io/subscribe.on-sync-failed.googlechat</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;opf-argocd-notifications&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">notifications.argoproj.io/subscribe.&lt;trigger_name&gt;.&lt;service&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;value_if_any_required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-resources-smaug</span><span class="w"></span>
-<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">notifications.argoproj.io/subscribe.on-sync-succeeded.slack</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;argocd-notifications&quot;</span>
+<span class="w">        </span><span class="nt">notifications.argoproj.io/subscribe.on-sync-failed.googlechat</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;opf-argocd-notifications&quot;</span>
+<span class="w">        </span><span class="nt">notifications.argoproj.io/subscribe.&lt;trigger_name&gt;.&lt;service&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;value_if_any_required&gt;</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-resources-smaug</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span>
 </pre></div>
 </div>
 <p>As this is in initial deployment stages for this application manifests are modified manually rather than patching them from this dir. For an example, see <a class="reference external" href="https://github.com/operate-first/apps/blob/master/argocd/overlays/moc-infra/applications/envs/moc/smaug/cluster-management/cluster-resources.yaml">cluster resources</a>.</p>

@@ -895,9 +895,9 @@ title="Print to PDF"
 <ol>
 <li><p>Onboard your project/group to Operate First (<a class="reference external" href="https://github.com/operate-first/hitchhikers-guide/blob/main/pages/onboarding_project.ipynb">guide</a>)</p></li>
 <li><p>Once your group has been onboarded, add your group to <a class="reference external" href="https://github.com/operate-first/apps/blob/master/observatorium/overlays/moc/smaug/thanos/rolebindings/opf-observatorium-view.yaml#L10">this list</a> in a new line as: <br></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span><span class="w"></span>
-<span class="w">   </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span><span class="w"></span>
-<span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MY_GROUP_NAME</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
+<span class="w">   </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MY_GROUP_NAME</span>
 </pre></div>
 </div>
 <p>and create a PR (Pull Request). You can see an example Pull Request <a class="reference external" href="https://github.com/operate-first/apps/pull/1378">here</a></p>
@@ -912,10 +912,10 @@ title="Print to PDF"
 <p>This is the endpoint that can be used to query logs from Loki.</p>
 <p>Example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">MY_BEARER_TOKEN</span><span class="o">=</span><span class="s2">&quot;sha256~1A...DW-id...NE-...lWM&quot;</span>
-curl -H <span class="s2">&quot;X-Scope-OrgID: cluster-infra-logs&quot;</span> <span class="se">\</span>
-  -H <span class="s2">&quot;Authorization: Bearer </span><span class="nv">$MY_BEARER_TOKEN</span><span class="s2">&quot;</span> <span class="se">\</span>
-  -G -s  <span class="s2">&quot;https://loki-frontend-opf-observatorium.apps.smaug.na.operate-first.cloud/loki/api/v1/query_range&quot;</span> <span class="se">\</span>
-  --data-urlencode <span class="s1">&#39;query={cluster_log_level=&quot;infra-logs&quot;}&#39;</span>
+curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-Scope-OrgID: cluster-infra-logs&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$MY_BEARER_TOKEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-G<span class="w"> </span>-s<span class="w">  </span><span class="s2">&quot;https://loki-frontend-opf-observatorium.apps.smaug.na.operate-first.cloud/loki/api/v1/query_range&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;query={cluster_log_level=&quot;infra-logs&quot;}&#39;</span>
 </pre></div>
 </div>
 <p>This command queries logs from Loki using <code class="docutils literal notranslate"><span class="pre">{cluster_log_level=&quot;infra-logs&quot;}</span></code> label as the

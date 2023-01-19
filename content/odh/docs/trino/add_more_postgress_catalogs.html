@@ -896,18 +896,18 @@ title="Print to PDF"
 Please explore <a class="reference external" href="https://github.com/operate-first/apps/tree/master/kfdefs/overlays">kfdefs</a> overlays folder to identify the values for these variables.</p>
 </div></blockquote>
 <p>Replace all instance of <code class="docutils literal notranslate"><span class="pre">&lt;catalog_name_upercase&gt;</span></code> with your catalog name in upper case and underscores instead of dash/spaces.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span><span class="w"></span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
-<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-dbs</span><span class="w"></span>
-<span class="nt">stringData</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Fill these values out accordingly</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;catalog_name_upercase&gt;_POSTGRESQL_USER</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_POSTGRESQL_PASSWORD</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_POSTGRESQL_DATABASE</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_POSTGRESQL_URL</span><span class="p">:</span><span class="w"></span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-dbs</span>
+<span class="nt">stringData</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Fill these values out accordingly</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;catalog_name_upercase&gt;_POSTGRESQL_USER</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_POSTGRESQL_PASSWORD</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_POSTGRESQL_DATABASE</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_POSTGRESQL_URL</span><span class="p">:</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
 </pre></div>
 </div>
 <blockquote>
@@ -917,10 +917,10 @@ Please explore <a class="reference external" href="https://github.com/operate-fi
 <li><p>Navigate to: <code class="docutils literal notranslate"><span class="pre">apps/kfdefs/overlays/$ENV/$CLUSTER/trino/configs/catalogs/</span></code>, create a file called
 <code class="docutils literal notranslate"><span class="pre">&lt;catalog_name_underscored&gt;.properties</span></code>. With the following contents:</p></li>
 </ol>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">connector.name=postgresql</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">connection-url=${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_URL}/${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_DATABASE}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">connection-user=${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_USER}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">connection-password=${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_PASSWORD}</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">connector.name=postgresql</span>
+<span class="l l-Scalar l-Scalar-Plain">connection-url=${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_URL}/${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_DATABASE}</span>
+<span class="l l-Scalar l-Scalar-Plain">connection-user=${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_USER}</span>
+<span class="l l-Scalar l-Scalar-Plain">connection-password=${ENV:&lt;catalog_name_upercase&gt;_POSTGRESQL_PASSWORD}</span>
 </pre></div>
 </div>
 <p>Replace all <code class="docutils literal notranslate"><span class="pre">&lt;*&gt;</span></code> values same as above.</p>

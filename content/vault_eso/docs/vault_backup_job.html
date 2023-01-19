@@ -895,14 +895,14 @@ to a <a class="reference external" href="https://github.com/hashicorp/vault/issu
 <p>Identify a unique prefix <code class="docutils literal notranslate"><span class="pre">&lt;bucket-prefix&gt;</span></code> for your bucket. The prefix can be whatever you would like, as long as it’s
 unique and does not collide with other prefixes in the configurations. We will refer to this prefix as <code class="docutils literal notranslate"><span class="pre">&lt;bucket-prefix&gt;</span></code>.</p>
 <p>Navigate to <a class="reference external" href="https://github.com/operate-first/apps/blob/master/vault/overlays/moc/smaug/backup-job/task.yaml">backupjob-task</a>. Append the <code class="docutils literal notranslate"><span class="pre">task.spec</span></code> field with the following entry:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backup-snapshot-to-s3-&lt;bucket-prefix&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/operate-first/mc:RELEASE.2022-06-17T02-52-50Z</span><span class="w"></span>
-<span class="w">      </span><span class="nt">workingDir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/workspace</span><span class="w"></span>
-<span class="w">      </span><span class="nt">onError</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continue</span><span class="w"></span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;/utility-scripts/backup-snapshot-to-s3.sh&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(workspaces.snapshots.path)</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;bucket-prefix&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backup-snapshot-to-s3-&lt;bucket-prefix&gt;</span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/operate-first/mc:RELEASE.2022-06-17T02-52-50Z</span>
+<span class="w">      </span><span class="nt">workingDir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/workspace</span>
+<span class="w">      </span><span class="nt">onError</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continue</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;/utility-scripts/backup-snapshot-to-s3.sh&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(workspaces.snapshots.path)</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;bucket-prefix&gt;</span>
 </pre></div>
 </div>
 <blockquote>
@@ -915,11 +915,11 @@ then all bucket syncs could fail, and the task may still show as a success.</p>
 <p>In the snippet above, replace <code class="docutils literal notranslate"><span class="pre">&lt;bucket-prefix&gt;</span></code> with your chosen prefix.</p>
 <p>Navigate to the backup-config secret within the Vault ocp <code class="docutils literal notranslate"><span class="pre">namespace</span></code>. Find this <a class="reference external" href="https://console-openshift-console.apps.smaug.na.operate-first.cloud/k8s/ns/vault/secrets/backup-job">here</a>.</p>
 <p>Add the following entries:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bucket-prefix&gt;-s3AccessKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="nt">&lt;bucket-prefix&gt;-s3SecretKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="nt">&lt;bucket-prefix&gt;-s3BucketName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="nt">&lt;bucket-prefix&gt;-s3EndPoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="nt">&lt;bucket-prefix&gt;-s3Retention</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># e.g. 1d</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bucket-prefix&gt;-s3AccessKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="nt">&lt;bucket-prefix&gt;-s3SecretKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="nt">&lt;bucket-prefix&gt;-s3BucketName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="nt">&lt;bucket-prefix&gt;-s3EndPoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="nt">&lt;bucket-prefix&gt;-s3Retention</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># e.g. 1d</span>
 </pre></div>
 </div>
 <blockquote>

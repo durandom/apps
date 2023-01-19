@@ -1026,7 +1026,7 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> kustomize build https://github.com/operate-first/apps/acm/overlays/moc/infra/managedclusters?ref<span class="o">=</span>master <span class="p">|</span> yq e -N <span class="s1">&#39;.metadata.name&#39;</span> -
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="nb">cd</span><span class="w"> </span>/tmp<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>build<span class="w"> </span>https://github.com/operate-first/apps/acm/overlays/moc/infra/managedclusters?ref<span class="o">=</span>master<span class="w"> </span><span class="p">|</span><span class="w"> </span>yq<span class="w"> </span>e<span class="w"> </span>-N<span class="w"> </span><span class="s1">&#39;.metadata.name&#39;</span><span class="w"> </span>-
 </pre></div>
 </div>
 </div>
@@ -1106,8 +1106,8 @@ smaug
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">WORKDIR</span><span class="o">=</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
-<span class="o">!</span><span class="nb">echo</span> Working <span class="k">in</span> directory <span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span>
-<span class="o">!</span>git clone https://github.com/<span class="o">{</span>GITHUB_USERNAME<span class="o">}</span>/apps.git <span class="o">{</span>WORKDIR<span class="o">}</span>
+<span class="o">!</span><span class="nb">echo</span><span class="w"> </span>Working<span class="w"> </span><span class="k">in</span><span class="w"> </span>directory<span class="w"> </span><span class="si">${</span><span class="nv">WORKDIR</span><span class="si">}</span>
+<span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/<span class="o">{</span>GITHUB_USERNAME<span class="o">}</span>/apps.git<span class="w"> </span><span class="o">{</span>WORKDIR<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -1131,7 +1131,7 @@ Resolving deltas: 100% (8219/8219), done.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> {WORKDIR}
-<span class="o">!</span>opfcli create-project <span class="o">{</span>NAMESPACE_NAME<span class="o">}</span> <span class="o">{</span>TEAM_NAME<span class="o">}</span> -d <span class="s2">&quot;{NAMESPACE_DISPLAY_NAME}&quot;</span>
+<span class="o">!</span>opfcli<span class="w"> </span>create-project<span class="w"> </span><span class="o">{</span>NAMESPACE_NAME<span class="o">}</span><span class="w"> </span><span class="o">{</span>TEAM_NAME<span class="o">}</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;{NAMESPACE_DISPLAY_NAME}&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1151,7 +1151,7 @@ Resolving deltas: 100% (8219/8219), done.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> {WORKDIR}/cluster-scope/overlays/prod/{TARGET_CLUSTER}/
-<span class="o">!</span>kustomize edit add resource ../../../../base/core/namespaces/<span class="o">{</span>NAMESPACE_NAME<span class="o">}</span>
+<span class="o">!</span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>../../../../base/core/namespaces/<span class="o">{</span>NAMESPACE_NAME<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -1182,7 +1182,7 @@ Resolving deltas: 100% (8219/8219), done.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> {WORKDIR}/cluster-scope/base/core/namespaces/{NAMESPACE_NAME}
 <span class="k">if</span><span class="p">(</span><span class="ow">not</span> <span class="n">CUSTOM_QUOTA</span><span class="p">):</span> 
-    <span class="o">!</span>kustomize edit add component ../../../../components/resourcequotas/<span class="o">{</span>QUOTA<span class="o">}</span>
+    <span class="o">!</span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>component<span class="w"> </span>../../../../components/resourcequotas/<span class="o">{</span>QUOTA<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -1212,7 +1212,7 @@ Resolving deltas: 100% (8219/8219), done.
 <span class="k">if</span> <span class="n">CUSTOM_QUOTA</span><span class="p">:</span>
     <span class="n">custom_quota_path</span> <span class="o">=</span> <span class="s2">&quot;base/core/namespaces/</span><span class="si">{0}</span><span class="s2">/resourcequota.yaml&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">NAMESPACE_NAME</span><span class="p">)</span>
     <span class="n">custom_quota</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        apiVersion: v1</span>
 <span class="sd">        kind: ResourceQuota</span>
 <span class="sd">        metadata:</span>
@@ -1242,7 +1242,7 @@ Resolving deltas: 100% (8219/8219), done.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> {WORKDIR}/cluster-scope/base/core/namespaces/{NAMESPACE_NAME}
-<span class="o">!</span>kustomize edit add resource resourcequota.yaml
+<span class="o">!</span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>resourcequota.yaml
 </pre></div>
 </div>
 </div>
@@ -1259,7 +1259,7 @@ Resolving deltas: 100% (8219/8219), done.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> {WORKDIR}/cluster-scope/overlays/prod/common
-<span class="o">!</span>kustomize edit add resource ../../../base/user.openshift.io/groups/<span class="o">{</span>TEAM_NAME<span class="o">}</span>
+<span class="o">!</span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>../../../base/user.openshift.io/groups/<span class="o">{</span>TEAM_NAME<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -1290,7 +1290,7 @@ Resolving deltas: 100% (8219/8219), done.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> {WORKDIR}
-<span class="o">!</span>yq e -i <span class="s2">&quot;.users = {NAMESPACE_ADMINS}&quot;</span> -P cluster-scope/base/user.openshift.io/groups/<span class="o">{</span>TEAM_NAME<span class="o">}</span>/group.yaml
+<span class="o">!</span>yq<span class="w"> </span>e<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;.users = {NAMESPACE_ADMINS}&quot;</span><span class="w"> </span>-P<span class="w"> </span>cluster-scope/base/user.openshift.io/groups/<span class="o">{</span>TEAM_NAME<span class="o">}</span>/group.yaml
 </pre></div>
 </div>
 </div>
@@ -1307,7 +1307,7 @@ Resolving deltas: 100% (8219/8219), done.
 <p>Review your changes by running the following:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git status
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git<span class="w"> </span>status
 </pre></div>
 </div>
 </div>
@@ -1335,9 +1335,9 @@ no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&q
 <p>Now let’s stage, commit, and push your changes to your GitHub account.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git add .
-<span class="o">!</span>git commit -m <span class="s2">&quot;feat(onboarding): Add team {TEAM_NAME}&quot;</span>
-<span class="o">!</span>git push
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git<span class="w"> </span>add<span class="w"> </span>.
+<span class="o">!</span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(onboarding): Add team {TEAM_NAME}&quot;</span>
+<span class="o">!</span>git<span class="w"> </span>push
 </pre></div>
 </div>
 </div>

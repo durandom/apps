@@ -1009,9 +1009,9 @@ $ podman push redis:5.0.10-alpine quay.io/operate-first/redis:5.0.10-alpine
 </pre></div>
 </div>
 <p>Next, under the <code class="docutils literal notranslate"><span class="pre">images</span></code> section <a class="reference external" href="https://github.com/operate-first/apps/blob/master/argocd/base/kustomization.yaml">here</a> update the <code class="docutils literal notranslate"><span class="pre">newTag</span></code> field for the <code class="docutils literal notranslate"><span class="pre">redis</span></code> image accordingly. Folowing from our example above, we would have the following new image in our <code class="docutils literal notranslate"><span class="pre">Kustomization</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
-<span class="w">    </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/operate-first/redis</span><span class="w"></span>
-<span class="w">    </span><span class="nt">newTag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0.10-alpine</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span>
+<span class="w">    </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/operate-first/redis</span>
+<span class="w">    </span><span class="nt">newTag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0.10-alpine</span>
 </pre></div>
 </div>
 </section>
@@ -1023,7 +1023,7 @@ $ podman push redis:5.0.10-alpine quay.io/operate-first/redis:5.0.10-alpine
 <li><p>Ensure the <code class="docutils literal notranslate"><span class="pre">CustomResourceDefinition</span></code>, <code class="docutils literal notranslate"><span class="pre">ClusterRoles</span></code>, <code class="docutils literal notranslate"><span class="pre">ClusterRoleBindings</span></code> in the <code class="docutils literal notranslate"><span class="pre">cluster-scope</span></code> app are synced with upstream for the new <code class="docutils literal notranslate"><span class="pre">ArgoCD</span></code> version.</p>
 <p>To do this, run the following from repo root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># TAG is a tag from https://github.com/argoproj/argo-cd/tags</span>
-$ ./scripts/argocd/update_cluster_resources.sh <span class="si">${</span><span class="nv">TAG</span><span class="si">}</span>
+$<span class="w"> </span>./scripts/argocd/update_cluster_resources.sh<span class="w"> </span><span class="si">${</span><span class="nv">TAG</span><span class="si">}</span>
 </pre></div>
 </div>
 </li>
@@ -1033,9 +1033,9 @@ $ ./scripts/argocd/update_cluster_resources.sh <span class="si">${</span><span c
 <section id="update-container-images">
 <h3>Update Container Images<a class="headerlink" href="#update-container-images" title="Permalink to this headline">#</a></h3>
 <p>Under the <code class="docutils literal notranslate"><span class="pre">images</span></code> section <a class="reference external" href="https://github.com/operate-first/apps/blob/master/argocd/base/kustomization.yaml#L16">here</a>, update the <code class="docutils literal notranslate"><span class="pre">operate-first/argocd</span></code> tag to <code class="docutils literal notranslate"><span class="pre">vX.X.X-Y</span></code>. For example, if updating to <code class="docutils literal notranslate"><span class="pre">v1.8.1-2</span></code> we would have the following new image in our <code class="docutils literal notranslate"><span class="pre">Kustomization</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argoproj/argocd</span><span class="w"></span>
-<span class="w">    </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/operate-first/argocd</span><span class="w"></span>
-<span class="w">    </span><span class="nt">newTag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.8.1-2</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argoproj/argocd</span>
+<span class="w">    </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/operate-first/argocd</span>
+<span class="w">    </span><span class="nt">newTag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.8.1-2</span>
 </pre></div>
 </div>
 <p>Run a manual <code class="docutils literal notranslate"><span class="pre">kustomize</span> <span class="pre">build</span></code> for the <code class="docutils literal notranslate"><span class="pre">argocd</span></code> overlay, and ensure that the images are updated in the deployment specs as intended.</p>

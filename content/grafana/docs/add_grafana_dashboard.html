@@ -873,17 +873,17 @@ title="Print to PDF"
 <h1>Add a Grafana dashboard to OperateFirst Grafana<a class="headerlink" href="#add-a-grafana-dashboard-to-operatefirst-grafana" title="Permalink to this headline">#</a></h1>
 <p>To be able to include your dashboards in Grafana, you will need to add a <code class="docutils literal notranslate"><span class="pre">GrafanaDashboard</span></code> custom resource. This custom resource is defined as a yaml file that can remotely reference the dashboard contents from a specified URL and falls back to an embedded json only if the URL can not be resolved.</p>
 <p>An example <code class="docutils literal notranslate"><span class="pre">grafana-dashboard-example.yaml</span></code> template is shown below:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integreatly.org/v1alpha1</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GrafanaDashboard</span><span class="w"></span>
-<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana-dashboard-from-url</span><span class="w"></span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana</span><span class="w"></span>
-<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">customFolderName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DASHBOARD_FOLDER}</span><span class="w"> </span><span class="c1"># Pi</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana-dashboard-from-url.json</span><span class="w"></span>
-<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/integr8ly/grafana-operator/master/deploy/examples/remote/grafana-dashboard.json</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integreatly.org/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GrafanaDashboard</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana-dashboard-from-url</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">customFolderName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DASHBOARD_FOLDER}</span><span class="w"> </span><span class="c1"># Pi</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana-dashboard-from-url.json</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/integr8ly/grafana-operator/master/deploy/examples/remote/grafana-dashboard.json</span>
 </pre></div>
 </div>
 <p>In this template, all you need to do is update:</p>
@@ -894,13 +894,13 @@ title="Print to PDF"
 <p>Pick a suitable <code class="docutils literal notranslate"><span class="pre">metadata.name</span></code>, ensure that its unique in the <a class="reference external" href="https://github.com/operate-first/apps/tree/master/grafana/overlays/moc/smaug/dashboards"><code class="docutils literal notranslate"><span class="pre">grafana/overlays/moc/smaug/dashboards</span></code></a> folder.</p>
 <p>Save this file under <code class="docutils literal notranslate"><span class="pre">grafana/overlays/moc/smaug/dashboards/${DASHBOARD_FOLDER}/grafana-dashboard-example.yaml</span></code>.</p>
 <p>Make sure to create a kustomization inside your ‘${DASHBOARD_FOLDER}’</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="si">${</span><span class="nv">DASHBOARD_FOLDER</span><span class="si">}</span>
-$ kustomize create --autodetect
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">DASHBOARD_FOLDER</span><span class="si">}</span>
+$<span class="w"> </span>kustomize<span class="w"> </span>create<span class="w"> </span>--autodetect
 </pre></div>
 </div>
 <p>Then add it to <code class="docutils literal notranslate"><span class="pre">grafana/overlays/moc/smaug/dashboards/kustomization.yaml</span></code> by running the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> grafana/overlays/moc/smaug/dashboards
-$ kustomize edit add resource <span class="si">${</span><span class="nv">DASHBOARD_FOLDER</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>grafana/overlays/moc/smaug/dashboards
+$<span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span><span class="si">${</span><span class="nv">DASHBOARD_FOLDER</span><span class="si">}</span>
 </pre></div>
 </div>
 <section id="backing-up-your-dashboard">

@@ -836,27 +836,27 @@ title="Print to PDF"
 <h1>Add Kafka Topics<a class="headerlink" href="#add-kafka-topics" title="Permalink to this headline">#</a></h1>
 <p>To add Kafka topics, create a new <code class="docutils literal notranslate"><span class="pre">KafkaTopic</span></code> resource within the <code class="docutils literal notranslate"><span class="pre">kafka/overlays/smaug/topics</span></code> sub directory.</p>
 <p>Replace <code class="docutils literal notranslate"><span class="pre">my-topic</span></code> with a preferred name.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># my-topic.yaml</span><span class="w"></span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kafka.strimzi.io/v1beta2</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KafkaTopic</span><span class="w"></span>
-<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-topic</span><span class="w"></span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">strimzi.io/cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odh-message-bus</span><span class="w"></span>
-<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">partitions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
-<span class="w">  </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># message retention period is 6 hours</span><span class="w"></span>
-<span class="w">    </span><span class="nt">retention.ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21600000</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># my-topic.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kafka.strimzi.io/v1beta2</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KafkaTopic</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-topic</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">strimzi.io/cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odh-message-bus</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">partitions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># message retention period is 6 hours</span>
+<span class="w">    </span><span class="nt">retention.ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21600000</span>
 </pre></div>
 </div>
 <p>The label <code class="docutils literal notranslate"><span class="pre">strimzi.io/cluster</span></code> should have the value <code class="docutils literal notranslate"><span class="pre">odh-message-bus</span></code>. On MOC the recommended partition size is <code class="docutils literal notranslate"><span class="pre">2</span></code> and replica count is <code class="docutils literal notranslate"><span class="pre">3</span></code>. The replica count should be less than or equal to the number of Kafka brokers. On MOC <code class="docutils literal notranslate"><span class="pre">smaug</span></code> cluster we have 3 brokers.</p>
 <p>Pick a suitable name, ensure that it’s unique in the <code class="docutils literal notranslate"><span class="pre">topics</span></code> folder.</p>
 <p>Save this file under <code class="docutils literal notranslate"><span class="pre">kafka/overlays/smaug/my-topic.yaml</span></code>.</p>
 <p>Then add it to <code class="docutils literal notranslate"><span class="pre">kafka/overlays/smaug/kustomization.yaml</span></code> by running the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> kafka/overlays/smaug/topics
-$ kustomize edit add resource my-topic.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>kafka/overlays/smaug/topics
+$<span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>my-topic.yaml
 </pre></div>
 </div>
 <p>If you don’t have <code class="docutils literal notranslate"><span class="pre">kustomize</span></code> then simply add this file manually.</p>

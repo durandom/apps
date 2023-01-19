@@ -931,32 +931,32 @@ title="Print to PDF"
 <section id="verify-there-are-sealed-pods">
 <h3>Verify there are Sealed Pods<a class="headerlink" href="#verify-there-are-sealed-pods" title="Permalink to this headline">#</a></h3>
 <p>To verify if a Vault pod is in a sealed state first check each Vault pods’ status:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ oc project vault
-$ oc get pods
-$ oc get pods <span class="p">|</span> <span class="o">{</span> head -1<span class="p">;</span> grep pf-vault-*<span class="p">;</span> <span class="o">}</span>
-NAME                                   READY   STATUS      RESTARTS   AGE
-opf-vault-0                            <span class="m">1</span>/1     Running     <span class="m">0</span>          8h
-opf-vault-1                            <span class="m">0</span>/1     Running     <span class="m">0</span>          8h
-opf-vault-2                            <span class="m">1</span>/1     Running     <span class="m">0</span>          8h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>oc<span class="w"> </span>project<span class="w"> </span>vault
+$<span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span>pods
+$<span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>head<span class="w"> </span>-1<span class="p">;</span><span class="w"> </span>grep<span class="w"> </span>pf-vault-*<span class="p">;</span><span class="w"> </span><span class="o">}</span>
+NAME<span class="w">                                   </span>READY<span class="w">   </span>STATUS<span class="w">      </span>RESTARTS<span class="w">   </span>AGE
+opf-vault-0<span class="w">                            </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">     </span><span class="m">0</span><span class="w">          </span>8h
+opf-vault-1<span class="w">                            </span><span class="m">0</span>/1<span class="w">     </span>Running<span class="w">     </span><span class="m">0</span><span class="w">          </span>8h
+opf-vault-2<span class="w">                            </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">     </span><span class="m">0</span><span class="w">          </span>8h
 </pre></div>
 </div>
 <p>If any of the pods are not ready, you will see <code class="docutils literal notranslate"><span class="pre">0/1</span></code> under the <code class="docutils literal notranslate"><span class="pre">READY</span></code> column. All pods will appear as <code class="docutils literal notranslate"><span class="pre">0/1</span></code> if they are
 sealed, see <a class="reference external" href="https://github.com/operate-first/apps/blob/master/vault/base/statefulsets/statefulset.yaml#L110">here</a> for this readiness check.</p>
 <p>We can further verify this Vault <em>pod</em> is sealed by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ oc rsh opf-vault-1
-$ vault status
-Key                Value
----                -----
-Seal Type          shamir
-Initialized        <span class="nb">true</span>
-Sealed             <span class="nb">true</span>
-Total Shares       <span class="m">5</span>
-Threshold          <span class="m">3</span>
-Unseal Progress    <span class="m">0</span>/3
-Unseal Nonce       n/a
-Version            <span class="m">1</span>.9.2
-Storage Type       raft
-HA Enabled         <span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>oc<span class="w"> </span>rsh<span class="w"> </span>opf-vault-1
+$<span class="w"> </span>vault<span class="w"> </span>status
+Key<span class="w">                </span>Value
+---<span class="w">                </span>-----
+Seal<span class="w"> </span>Type<span class="w">          </span>shamir
+Initialized<span class="w">        </span><span class="nb">true</span>
+Sealed<span class="w">             </span><span class="nb">true</span>
+Total<span class="w"> </span>Shares<span class="w">       </span><span class="m">5</span>
+Threshold<span class="w">          </span><span class="m">3</span>
+Unseal<span class="w"> </span>Progress<span class="w">    </span><span class="m">0</span>/3
+Unseal<span class="w"> </span>Nonce<span class="w">       </span>n/a
+Version<span class="w">            </span><span class="m">1</span>.9.2
+Storage<span class="w"> </span>Type<span class="w">       </span>raft
+HA<span class="w"> </span>Enabled<span class="w">         </span><span class="nb">true</span>
 $
 </pre></div>
 </div>
@@ -967,33 +967,33 @@ $
 <p>Specify the following Environment Variables. All values available in Operate-First bitwarden, there are 5 unseal keys,
 we only need 3 to unseal, pick any 3.:</p>
 <p>While rsh’d into the sealed Vault node (i.e. pod) run the following to unseal:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ vault operator unseal
-Key <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;enter-unseal-key-1&gt;
-$ vault operator unseal
-Key <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;enter-unseal-key-2&gt;
-$ vault operator unseal
-Key <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;enter-unseal-key-2&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>unseal
+Key<span class="w"> </span><span class="o">(</span>will<span class="w"> </span>be<span class="w"> </span>hidden<span class="o">)</span>:<span class="w"> </span>&lt;enter-unseal-key-1&gt;
+$<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>unseal
+Key<span class="w"> </span><span class="o">(</span>will<span class="w"> </span>be<span class="w"> </span>hidden<span class="o">)</span>:<span class="w"> </span>&lt;enter-unseal-key-2&gt;
+$<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>unseal
+Key<span class="w"> </span><span class="o">(</span>will<span class="w"> </span>be<span class="w"> </span>hidden<span class="o">)</span>:<span class="w"> </span>&lt;enter-unseal-key-2&gt;
 </pre></div>
 </div>
 <p>Once done, run the following (while still rsh’d into the pod):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ oc <span class="nb">exec</span> -ti opf-vault-1 -- vault status
-/ $ vault status
-Key                     Value
----                     -----
-Seal Type               shamir
-Initialized             <span class="nb">true</span>
-Sealed                  <span class="nb">false</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-1<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>status
+/<span class="w"> </span>$<span class="w"> </span>vault<span class="w"> </span>status
+Key<span class="w">                     </span>Value
+---<span class="w">                     </span>-----
+Seal<span class="w"> </span>Type<span class="w">               </span>shamir
+Initialized<span class="w">             </span><span class="nb">true</span>
+Sealed<span class="w">                  </span><span class="nb">false</span>
 ...
 </pre></div>
 </div>
 <p>Verify that <code class="docutils literal notranslate"><span class="pre">Sealed</span></code> is set to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 <p>Confirm that the Vault node has rejoined the cluster:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/ $ vault operator raft list-peers
-Node                                    Address                                State       Voter
-----                                    -------                                -----       -----
-09b66090-446e-3974-bcb1-7080dacc07e7    opf-vault-0.opf-vault-internal:8201    follower    <span class="nb">true</span>
-56796c78-adac-b69e-8a62-c431b17c8b9b    opf-vault-2.opf-vault-internal:8201    leader      <span class="nb">true</span>
-e58ab8b5-62d7-cc6f-27e0-79656bfb8ab7    opf-vault-1.opf-vault-internal:8201    follower    <span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/<span class="w"> </span>$<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
+Node<span class="w">                                    </span>Address<span class="w">                                </span>State<span class="w">       </span>Voter
+----<span class="w">                                    </span>-------<span class="w">                                </span>-----<span class="w">       </span>-----
+09b66090-446e-3974-bcb1-7080dacc07e7<span class="w">    </span>opf-vault-0.opf-vault-internal:8201<span class="w">    </span>follower<span class="w">    </span><span class="nb">true</span>
+56796c78-adac-b69e-8a62-c431b17c8b9b<span class="w">    </span>opf-vault-2.opf-vault-internal:8201<span class="w">    </span>leader<span class="w">      </span><span class="nb">true</span>
+e58ab8b5-62d7-cc6f-27e0-79656bfb8ab7<span class="w">    </span>opf-vault-1.opf-vault-internal:8201<span class="w">    </span>follower<span class="w">    </span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>If you see the other cluster nodes listed, including the node just unsealed. Then you are done.</p>

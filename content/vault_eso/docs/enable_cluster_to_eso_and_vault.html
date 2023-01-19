@@ -947,7 +947,7 @@ title="Print to PDF"
 <p>Fork and clone the <code class="docutils literal notranslate"><span class="pre">operate-first/apps</span></code> repository.</p>
 <p>Add ESO to the cluster by adding to <code class="docutils literal notranslate"><span class="pre">apps/cluster-scope/overlays/prod/$env/$cluster/kustomization.yaml</span></code>
 the following line:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">../../../../bundles/external-secrets-operator</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">../../../../bundles/external-secrets-operator</span>
 </pre></div>
 </div>
 <p>Also add <code class="docutils literal notranslate"><span class="pre">OperatorConfig</span></code> from the <code class="docutils literal notranslate"><span class="pre">base</span></code> directory <a class="reference external" href="https://github.com/operate-first/apps/tree/master/external-secrets/overlays">here</a> for your <code class="docutils literal notranslate"><span class="pre">$env/$cluster</span></code>. See other sub folders in
@@ -991,25 +991,25 @@ clusters’ secret will need access to this path.</p>
 </pre></div>
 </div>
 <p>Login to Vault via the CLI and run the following to apply these policies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault policy write <span class="si">${</span><span class="nv">env</span><span class="si">}</span>-kv-r sa_policy.hcl
-vault policy write <span class="si">${</span><span class="nv">env</span><span class="si">}</span>-kv-rw user_policy.hcl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>policy<span class="w"> </span>write<span class="w"> </span><span class="si">${</span><span class="nv">env</span><span class="si">}</span>-kv-r<span class="w"> </span>sa_policy.hcl
+vault<span class="w"> </span>policy<span class="w"> </span>write<span class="w"> </span><span class="si">${</span><span class="nv">env</span><span class="si">}</span>-kv-rw<span class="w"> </span>user_policy.hcl
 </pre></div>
 </div>
 </section>
 <section id="give-ocp-users-rw-access">
 <h3>Give OCP users RW access<a class="headerlink" href="#give-ocp-users-rw-access" title="Permalink to this headline">#</a></h3>
 <p>Check if the Vault group for this ENV exists:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault list /identity/group/name <span class="p">|</span> grep vault-admins-<span class="si">${</span><span class="nv">env</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>list<span class="w"> </span>/identity/group/name<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>vault-admins-<span class="si">${</span><span class="nv">env</span><span class="si">}</span>
 </pre></div>
 </div>
 <p>If there’s no output then you need to create a Vault group that has read/write access to the path <code class="docutils literal notranslate"><span class="pre">k8s_secrets/data/$env/*</span></code>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault write identity/group <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;vault-admins-</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&quot;external&quot;</span> <span class="se">\</span>
-       <span class="nv">policies</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2">-kv-rw&quot;</span> <span class="se">\</span>
-       <span class="nv">metadata</span><span class="o">=</span><span class="nv">responsibility</span><span class="o">=</span><span class="s2">&quot;Vault </span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2"> Admin&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>write<span class="w"> </span>identity/group<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;vault-admins-</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;external&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">policies</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2">-kv-rw&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">metadata</span><span class="o">=</span><span class="nv">responsibility</span><span class="o">=</span><span class="s2">&quot;Vault </span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2"> Admin&quot;</span>
 
-vault write identity/group-alias <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;vault-admins-</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-     <span class="nv">mount_accessor</span><span class="o">=</span><span class="k">$(</span>vault auth list -format<span class="o">=</span>json  <span class="p">|</span> jq -r <span class="s1">&#39;.&quot;oidc/&quot;.accessor&#39;</span><span class="k">)</span> <span class="se">\</span>
-     <span class="nv">canonical_id</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>vault <span class="nb">read</span> /identity/group/name/vault-admins-<span class="si">${</span><span class="nv">env</span><span class="si">}</span> -format<span class="o">=</span>json <span class="p">|</span> jq -r <span class="s1">&#39;.data.alias.canonical_id&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+vault<span class="w"> </span>write<span class="w"> </span>identity/group-alias<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;vault-admins-</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">mount_accessor</span><span class="o">=</span><span class="k">$(</span>vault<span class="w"> </span>auth<span class="w"> </span>list<span class="w"> </span>-format<span class="o">=</span>json<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.&quot;oidc/&quot;.accessor&#39;</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">canonical_id</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>vault<span class="w"> </span><span class="nb">read</span><span class="w"> </span>/identity/group/name/vault-admins-<span class="si">${</span><span class="nv">env</span><span class="si">}</span><span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.data.alias.canonical_id&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>This will associate the OCP group named <code class="docutils literal notranslate"><span class="pre">vault-admins-${env}</span></code> with the policy created earlier named <code class="docutils literal notranslate"><span class="pre">${env}-kv-rw</span></code>.
@@ -1026,25 +1026,25 @@ Secret Stores managed by ESO. For this we just run the following:</p>
 <p>Ensure you are logged into to the target cluster via <code class="docutils literal notranslate"><span class="pre">oc</span> <span class="pre">login</span></code>.</p>
 <p>First enable the auth method. Each cluster gets their own because Vault will use its <code class="docutils literal notranslate"><span class="pre">ServiceAccount</span></code> with <code class="docutils literal notranslate"><span class="pre">tokenreview</span></code>
 permissions to authenticate requests from ESO.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault auth <span class="nb">enable</span> -path<span class="o">=</span><span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s kubernetes
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>auth<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>-path<span class="o">=</span><span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s<span class="w"> </span>kubernetes
 </pre></div>
 </div>
 <p>Configure this auth method so that it can review tokens for this cluster.</p>
 <blockquote>
 <div><p>Note: For this to work, the api server must have a valid certs.</p>
 </div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault write auth/<span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s/config <span class="se">\</span>
-<span class="nv">token_reviewer_jwt</span><span class="o">=</span><span class="k">$(</span>oc sa get-token eso-vault-auth -n external-secrets-operator<span class="k">)</span> <span class="se">\</span>
-<span class="nv">kubernetes_host</span><span class="o">=</span><span class="k">$(</span>oc whoami --show-server<span class="k">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>write<span class="w"> </span>auth/<span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s/config<span class="w"> </span><span class="se">\</span>
+<span class="nv">token_reviewer_jwt</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>sa<span class="w"> </span>get-token<span class="w"> </span>eso-vault-auth<span class="w"> </span>-n<span class="w"> </span>external-secrets-operator<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="nv">kubernetes_host</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="w"> </span>--show-server<span class="k">)</span>
 </pre></div>
 </div>
 <p>Create the role for this auth server with a starter SA that can be used to authenticate against this k8s auth method.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># replace $sa and $sa_namespace accordingly</span>
-vault write auth/<span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s/role/<span class="si">${</span><span class="nv">env</span><span class="si">}</span>-ops <span class="se">\</span>
-<span class="nv">alias_name_source</span><span class="o">=</span>serviceaccount_uid <span class="se">\</span>
-<span class="nv">bound_service_account_names</span><span class="o">=</span><span class="si">${</span><span class="nv">sa</span><span class="si">}</span> <span class="se">\</span>
-<span class="nv">bound_service_account_namespaces</span><span class="o">=</span><span class="si">${</span><span class="nv">sa_namespace</span><span class="si">}</span> <span class="se">\</span>
-<span class="nv">policies</span><span class="o">=</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span>-kv-r <span class="se">\</span>
+vault<span class="w"> </span>write<span class="w"> </span>auth/<span class="si">${</span><span class="nv">cluster</span><span class="si">}</span>-k8s/role/<span class="si">${</span><span class="nv">env</span><span class="si">}</span>-ops<span class="w"> </span><span class="se">\</span>
+<span class="nv">alias_name_source</span><span class="o">=</span>serviceaccount_uid<span class="w"> </span><span class="se">\</span>
+<span class="nv">bound_service_account_names</span><span class="o">=</span><span class="si">${</span><span class="nv">sa</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="nv">bound_service_account_namespaces</span><span class="o">=</span><span class="si">${</span><span class="nv">sa_namespace</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="nv">policies</span><span class="o">=</span><span class="si">${</span><span class="nv">env</span><span class="si">}</span>-kv-r<span class="w"> </span><span class="se">\</span>
 <span class="nv">ttl</span><span class="o">=</span>1h
 </pre></div>
 </div>

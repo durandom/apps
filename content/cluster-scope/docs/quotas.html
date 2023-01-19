@@ -919,8 +919,8 @@ title="Print to PDF"
 <p>Select a tier from <a class="reference internal" href="#"><span class="doc std std-doc">this list</span></a>.</p>
 <p>Now add this quota to the namespace. For example, if you want to add <code class="docutils literal notranslate"><span class="pre">small</span></code> tier quota to the namespace <code class="docutils literal notranslate"><span class="pre">argocd</span></code> run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the root of this repo</span>
-$ <span class="nb">cd</span> cluster-scope/base/core/namespaces/argocd
-$ kustomize edit add component ../../../../components/resourcequotas/small
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>cluster-scope/base/core/namespaces/argocd
+$<span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>component<span class="w"> </span>../../../../components/resourcequotas/small
 </pre></div>
 </div>
 </section>
@@ -928,8 +928,8 @@ $ kustomize edit add component ../../../../components/resourcequotas/small
 <h2>Adding a custom resource quota to a namespace<a class="headerlink" href="#adding-a-custom-resource-quota-to-a-namespace" title="Permalink to this headline">#</a></h2>
 <p>Create your <a class="reference external" href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">own resource</a> in the appropriate namespace folder in <code class="docutils literal notranslate"><span class="pre">cluster-scope/base/core/namespaces/&lt;your_namespace&gt;</span></code> name this file <code class="docutils literal notranslate"><span class="pre">resourcequota.yaml</span></code>, ensure that the <code class="docutils literal notranslate"><span class="pre">.metadata.name</span></code> is set to <code class="docutils literal notranslate"><span class="pre">&lt;namespace_name&gt;-custom</span></code>. For example, if you were adding a custom quota to the namespace <code class="docutils literal notranslate"><span class="pre">argocd</span></code> you would run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the root of this repo</span>
-$ <span class="nb">cd</span> cluster-scope/base/core/namespaces/argocd
-$ kustomize edit add resource ./resourcequota.yaml
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>cluster-scope/base/core/namespaces/argocd
+$<span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>./resourcequota.yaml
 </pre></div>
 </div>
 </section>
@@ -937,8 +937,8 @@ $ kustomize edit add resource ./resourcequota.yaml
 <h2>Add Limit Range to the namespace<a class="headerlink" href="#add-limit-range-to-the-namespace" title="Permalink to this headline">#</a></h2>
 <p>Ensure that a default <code class="docutils literal notranslate"><span class="pre">LimitRange</span></code> is configured if adding a resource quota, otherwise your pods may encounter issues during creation. You can include a <code class="docutils literal notranslate"><span class="pre">LimitRange</span></code> from <a class="reference external" href="https://github.com/operate-first/apps/tree/master/cluster-scope/components/limitranges">here</a>. For example, if adding a <code class="docutils literal notranslate"><span class="pre">LimitRange</span></code> to the <code class="docutils literal notranslate"><span class="pre">argocd</span></code> namespace run the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the root of this repo</span>
-$ <span class="nb">cd</span> cluster-scope/base/core/namespaces/argocd
-$ kustomize edit add component ../../../../components/limitranges/default
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>cluster-scope/base/core/namespaces/argocd
+$<span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>component<span class="w"> </span>../../../../components/limitranges/default
 </pre></div>
 </div>
 </section>

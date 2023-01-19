@@ -959,11 +959,11 @@ this is <code class="docutils literal notranslate"><span class="pre">osc-ops</sp
 <h4>Add Store and SA to namespace<a class="headerlink" href="#add-store-and-sa-to-namespace" title="Permalink to this headline">#</a></h4>
 <p>Navigate to <code class="docutils literal notranslate"><span class="pre">apps/cluster-scope/overlays/prod/${env}/${cluster}/secret-mgmt</span></code> and create a new directory named after
 your namespace. In this directory add <code class="docutils literal notranslate"><span class="pre">kustomization.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1beta1</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span><span class="w"></span>
-<span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${namespace}</span><span class="w">  </span><span class="c1"># replace with your namespace</span><span class="w"></span>
-<span class="nt">resources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../base</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span>
+<span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${namespace}</span><span class="w">  </span><span class="c1"># replace with your namespace</span>
+<span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../base</span>
 </pre></div>
 </div>
 <p>Then include this directory in  <code class="docutils literal notranslate"><span class="pre">apps/cluster-scope/overlays/prod/${env}/${cluster}/secret-mgmt/kustomization.yaml</span></code>.</p>

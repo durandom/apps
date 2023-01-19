@@ -1173,7 +1173,7 @@ title="Print to PDF"
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git clone https://github.com/<span class="o">{</span>GITHUB_USERNAME<span class="o">}</span>/apps.git
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/<span class="o">{</span>GITHUB_USERNAME<span class="o">}</span>/apps.git
 <span class="o">%</span><span class="k">cd</span> apps
 </pre></div>
 </div>
@@ -1201,14 +1201,14 @@ Resolving deltas: 100% (6290/6290), done.
 <span class="s2">apiVersion: cluster.open-cluster-management.io/v1</span>
 <span class="s2">kind: ManagedCluster</span>
 <span class="s2">metadata:</span>
-<span class="s2">  name: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">  name: </span><span class="si">%s</span>
 <span class="s2">  labels:</span>
 <span class="s2">    cluster.open-cluster-management.io/clusterset: argocd-managed</span>
 <span class="s2">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">CLUSTER_NAME</span><span class="p">)</span>
 
 <span class="o">%</span><span class="k">store</span> text_input &gt;acm/overlays/moc/infra/managedclusters/{CLUSTER_NAME}.yaml
 
-<span class="o">!</span><span class="nb">cd</span> acm/overlays/moc/infra/managedclusters <span class="o">&amp;&amp;</span> kustomize edit add resource <span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>acm/overlays/moc/infra/managedclusters<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span><span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml
 </pre></div>
 </div>
 </div>
@@ -1232,24 +1232,24 @@ Resolving deltas: 100% (6290/6290), done.
 <p>The <code class="docutils literal notranslate"><span class="pre">KeycloakClient</span></code> resource makes our SSO aware of the cluster’s presence - it configures and enables the cluster to a client to the SSO.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>gpg --keyserver keys.openpgp.org --recv 0508677DD04952D06A943D5B4DC4116D360E3276
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>gpg<span class="w"> </span>--keyserver<span class="w"> </span>keys.openpgp.org<span class="w"> </span>--recv<span class="w"> </span>0508677DD04952D06A943D5B4DC4116D360E3276
 
 <span class="n">text_input</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">apiVersion: keycloak.org/v1alpha1</span>
 <span class="s2">kind: KeycloakClient</span>
 <span class="s2">metadata:</span>
-<span class="s2">    name: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    name: </span><span class="si">%s</span>
 <span class="s2">    labels:</span>
-<span class="s2">        client: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">        client: </span><span class="si">%s</span>
 <span class="s2">spec:</span>
 <span class="s2">    client:</span>
-<span class="s2">        clientId: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">        clientId: </span><span class="si">%s</span>
 <span class="s2">        defaultClientScopes:</span>
 <span class="s2">            - profile</span>
-<span class="s2">        description: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">        description: </span><span class="si">%s</span>
 <span class="s2">        name: </span><span class="si">%s</span><span class="s2"> cluster</span>
 <span class="s2">        protocol: openid-connect</span>
-<span class="s2">        secret: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">        secret: </span><span class="si">%s</span>
 <span class="s2">        standardFlowEnabled: true</span>
 <span class="s2">        redirectUris:</span>
 <span class="s2">            - https://oauth-openshift.apps.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.operate-first.cloud/oauth2callback/operate-first</span>
@@ -1261,11 +1261,11 @@ Resolving deltas: 100% (6290/6290), done.
 
 <span class="o">%</span><span class="k">store</span> text_input &gt;keycloak/overlays/moc/infra/clients/{CLUSTER_NAME}.yaml
 
-<span class="o">!</span>sops --encrypt --encrypted-regex<span class="o">=</span><span class="s2">&quot;^secret</span>$<span class="s2">&quot;</span> --pgp<span class="o">=</span><span class="s2">&quot;0508677DD04952D06A943D5B4DC4116D360E3276&quot;</span> keycloak/overlays/moc/infra/clients/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml &gt;keycloak/overlays/moc/infra/clients/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.enc.yaml
+<span class="o">!</span>sops<span class="w"> </span>--encrypt<span class="w"> </span>--encrypted-regex<span class="o">=</span><span class="s2">&quot;^secret</span>$<span class="s2">&quot;</span><span class="w"> </span>--pgp<span class="o">=</span><span class="s2">&quot;0508677DD04952D06A943D5B4DC4116D360E3276&quot;</span><span class="w"> </span>keycloak/overlays/moc/infra/clients/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml<span class="w"> </span>&gt;keycloak/overlays/moc/infra/clients/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.enc.yaml
 
-<span class="o">!</span>rm keycloak/overlays/moc/infra/clients/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml
+<span class="o">!</span>rm<span class="w"> </span>keycloak/overlays/moc/infra/clients/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml
 
-<span class="o">!</span>yq e -i <span class="s2">&quot;.files += [\&quot;clients/{CLUSTER_NAME}.enc.yaml\&quot;]&quot;</span> keycloak/overlays/moc/infra/secret-generator.yaml
+<span class="o">!</span>yq<span class="w"> </span>e<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;.files += [\&quot;clients/{CLUSTER_NAME}.enc.yaml\&quot;]&quot;</span><span class="w"> </span>keycloak/overlays/moc/infra/secret-generator.yaml
 </pre></div>
 </div>
 </div>
@@ -1287,7 +1287,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <p>Then we reference this secret in the OAuth configuration for OpenShift. The <code class="docutils literal notranslate"><span class="pre">OAuth</span></code> resource defines identity providers available to users when authenticating to the cluster.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir -p cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir<span class="w"> </span>-p<span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/
 
 <span class="n">text_input</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">apiVersion: v1</span>
@@ -1300,14 +1300,14 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">        argocd.argoproj.io/sync-options: Prune=false</span>
 <span class="s2">type: Opaque</span>
 <span class="s2">stringData:</span>
-<span class="s2">    clientSecret: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    clientSecret: </span><span class="si">%s</span>
 <span class="s2">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">UUID</span><span class="p">)</span>
 
 <span class="o">%</span><span class="k">store</span> text_input &gt;cluster-scope/overlays/prod/{CLUSTER_REGION}/{CLUSTER_NAME}/oauths/operate-first-sso-secret.yaml
 
-<span class="o">!</span>sops --encrypt --encrypted-regex<span class="o">=</span><span class="s2">&quot;^(data|stringData)</span>$<span class="s2">&quot;</span> --pgp<span class="o">=</span><span class="s2">&quot;0508677DD04952D06A943D5B4DC4116D360E3276&quot;</span> cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/operate-first-sso-secret.yaml &gt;cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/operate-first-sso-secret.enc.yaml
+<span class="o">!</span>sops<span class="w"> </span>--encrypt<span class="w"> </span>--encrypted-regex<span class="o">=</span><span class="s2">&quot;^(data|stringData)</span>$<span class="s2">&quot;</span><span class="w"> </span>--pgp<span class="o">=</span><span class="s2">&quot;0508677DD04952D06A943D5B4DC4116D360E3276&quot;</span><span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/operate-first-sso-secret.yaml<span class="w"> </span>&gt;cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/operate-first-sso-secret.enc.yaml
 
-<span class="o">!</span>rm cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/operate-first-sso-secret.yaml
+<span class="o">!</span>rm<span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/oauths/operate-first-sso-secret.yaml
 </pre></div>
 </div>
 </div>
@@ -1360,7 +1360,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">            - name</span>
 <span class="s2">          preferredUsername:</span>
 <span class="s2">            - preferred_username</span>
-<span class="s2">        clientID: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">        clientID: </span><span class="si">%s</span>
 <span class="s2">        clientSecret:</span>
 <span class="s2">          name: operate-first-sso-secret</span>
 <span class="s2">        extraScopes: []</span>
@@ -1387,7 +1387,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <p>By executing the following cell you will create a file <code class="docutils literal notranslate"><span class="pre">cluster-scope/overlays/prod/$CLUSTER_REGION/$CLUSTER_NAME/groups/cluster-admins.yaml</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir -p cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/groups
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir<span class="w"> </span>-p<span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/groups
 <span class="n">input_text</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">apiVersion: user.openshift.io/v1</span>
 <span class="s2">kind: Group</span>
@@ -1395,7 +1395,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">    name: cluster-admins</span>
 <span class="s2">&quot;&quot;&quot;</span>
 <span class="o">%</span><span class="k">store</span> input_text  &gt;cluster-scope/overlays/prod/{CLUSTER_REGION}/{CLUSTER_NAME}/groups/cluster-admins.yaml
-<span class="o">!</span>yq e -i <span class="s2">&quot;.users = {CLUSTER_ADMINS}&quot;</span> cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/groups/cluster-admins.yaml
+<span class="o">!</span>yq<span class="w"> </span>e<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;.users = {CLUSTER_ADMINS}&quot;</span><span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/groups/cluster-admins.yaml
 </pre></div>
 </div>
 </div>
@@ -1455,7 +1455,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <p>User Workload Monitoring can be enabled via a simple configuration change in the <code class="docutils literal notranslate"><span class="pre">cluster-monitoring-config</span></code> ConfigMap in the <code class="docutils literal notranslate"><span class="pre">openshift-monitoring</span></code> namespace. Since we apply this change to most of the clusters, we host it in the <code class="docutils literal notranslate"><span class="pre">cluster-scope/base</span></code>. To apply this change to the new cluster, all we have to do is to pull the resource in to the overlay we created in previous step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="nb">cd</span> cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span> <span class="o">&amp;&amp;</span> kustomize edit add resource ../../../../base/core/configmaps/cluster-monitoring-config
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="nb">cd</span><span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>../../../../base/core/configmaps/cluster-monitoring-config
 </pre></div>
 </div>
 </div>
@@ -1466,7 +1466,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <p>Alert receiver configuration is also well known and already defined. However since this is a standalone application, we need a separate overlay for it in folder which belongs to this application - <code class="docutils literal notranslate"><span class="pre">alertreceiver</span></code> folder. In the next cell we will create a new overlay in there (patching the static labels assigned to each alert originating from this cluster). Then we’ll update the <code class="docutils literal notranslate"><span class="pre">cluster-scope</span></code> overlay we’ve created in the step <a class="reference internal" href="#content-references-stich-kustomize"><span class="std std-ref">6. Stitch things together via Kustomize</span></a> of this guide by requesting a namespace for the alert receiver to be created.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir -p alertreceiver/overlays/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir<span class="w"> </span>-p<span class="w"> </span>alertreceiver/overlays/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>
 
 <span class="n">text_input</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">---</span>
@@ -1480,7 +1480,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">  - patch: |</span>
 <span class="s2">      - op: replace</span>
 <span class="s2">        path: /spec/template/spec/containers/0/args/0</span>
-<span class="s2">        value: --label=environment/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">        value: --label=environment/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span>
 <span class="s2">    target:</span>
 <span class="s2">      group: apps</span>
 <span class="s2">      kind: Deployment</span>
@@ -1490,7 +1490,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 
 <span class="o">%</span><span class="k">store</span> text_input  &gt;alertreceiver/overlays/{CLUSTER_REGION}/{CLUSTER_NAME}/kustomization.yaml
 
-<span class="o">!</span><span class="nb">cd</span> cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span> <span class="o">&amp;&amp;</span> kustomize edit add resource ../../../../base/core/namespaces/opf-alertreceiver
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>cluster-scope/overlays/prod/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>../../../../base/core/namespaces/opf-alertreceiver
 </pre></div>
 </div>
 </div>
@@ -1523,14 +1523,14 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">apiVersion: argoproj.io/v1alpha1</span>
 <span class="s2">kind: Application</span>
 <span class="s2">metadata:</span>
-<span class="s2">  name: opf-app-of-apps-</span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">  name: opf-app-of-apps-</span><span class="si">%s</span>
 <span class="s2">spec:</span>
 <span class="s2">  destination:</span>
 <span class="s2">    namespace: argocd</span>
 <span class="s2">    name: moc-infra</span>
 <span class="s2">  project: operate-first</span>
 <span class="s2">  source:</span>
-<span class="s2">    path: argocd/overlays/moc-infra/applications/envs/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    path: argocd/overlays/moc-infra/applications/envs/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span>
 <span class="s2">    repoURL: https://github.com/operate-first/apps.git</span>
 <span class="s2">    targetRevision: HEAD</span>
 <span class="s2">  syncPolicy:</span>
@@ -1544,7 +1544,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 
 <span class="o">%</span><span class="k">store</span> text_input &gt;argocd/overlays/moc-infra/applications/app-of-apps/app-of-apps-{CLUSTER_NAME}.yaml
 
-<span class="o">!</span><span class="nb">cd</span> argocd/overlays/moc-infra/applications/app-of-apps <span class="o">&amp;&amp;</span> kustomize edit add resource app-of-apps-<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>argocd/overlays/moc-infra/applications/app-of-apps<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>app-of-apps-<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>.yaml
 </pre></div>
 </div>
 </div>
@@ -1557,9 +1557,9 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <p>As you can see we’ve pointed ArgoCD to a folder within <code class="docutils literal notranslate"><span class="pre">argocd/overlays/moc-infra/applications/envs</span></code> which does not exist yet. Now is the time to create it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir  -p argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir<span class="w">  </span>-p<span class="w"> </span>argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>
 
-<span class="o">!</span><span class="nb">cd</span> argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span> <span class="o">&amp;&amp;</span> kustomize init --namespace argocd --namesuffix -<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>init<span class="w"> </span>--namespace<span class="w"> </span>argocd<span class="w"> </span>--namesuffix<span class="w"> </span>-<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -1570,7 +1570,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <p>Now let’s add our first application to this folder. This application should source the overlay in the <code class="docutils literal notranslate"><span class="pre">cluster-scope</span></code> folder, which we’ve created at <a class="reference internal" href="#content-references-stich-kustomize"><span class="std std-ref">6. Stitch things together via Kustomize</span></a> step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir -p argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/cluster-management
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>mkdir<span class="w"> </span>-p<span class="w"> </span>argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/cluster-management
 
 <span class="n">text_input</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">apiVersion: argoproj.io/v1alpha1</span>
@@ -1579,7 +1579,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">  name: cluster-resources</span>
 <span class="s2">spec:</span>
 <span class="s2">  destination:</span>
-<span class="s2">    name: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    name: </span><span class="si">%s</span>
 <span class="s2">    namespace: open-cluster-management-agent</span>
 <span class="s2">  ignoreDifferences:</span>
 <span class="s2">    - group: imageregistry.operator.openshift.io</span>
@@ -1593,7 +1593,7 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 <span class="s2">      name: cluster</span>
 <span class="s2">  project: cluster-management</span>
 <span class="s2">  source:</span>
-<span class="s2">    path: cluster-scope/overlays/prod/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    path: cluster-scope/overlays/prod/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span>
 <span class="s2">    repoURL: https://github.com/operate-first/apps.git</span>
 <span class="s2">    targetRevision: HEAD</span>
 <span class="s2">  syncPolicy:</span>
@@ -1607,9 +1607,9 @@ Writing &#39;text_input&#39; (str) to file &#39;keycloak/overlays/moc/infra/clie
 
 <span class="o">%</span><span class="k">store</span> text_input &gt;argocd/overlays/moc-infra/applications/envs/{CLUSTER_REGION}/{CLUSTER_NAME}/cluster-management/cluster-resources.yaml
 
-<span class="o">!</span><span class="nb">cd</span> argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/cluster-management <span class="o">&amp;&amp;</span> kustomize init --resources cluster-resources.yaml
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/cluster-management<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>init<span class="w"> </span>--resources<span class="w"> </span>cluster-resources.yaml
 
-<span class="o">!</span><span class="nb">cd</span> argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span> <span class="o">&amp;&amp;</span> kustomize edit add resource cluster-management
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>cluster-management
 </pre></div>
 </div>
 </div>
@@ -1666,11 +1666,11 @@ Global Flags:
 <span class="s2">  name: alertreceiver</span>
 <span class="s2">spec:</span>
 <span class="s2">  destination:</span>
-<span class="s2">    name: </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    name: </span><span class="si">%s</span>
 <span class="s2">    namespace: opf-alertreceiver</span>
 <span class="s2">  project: cluster-management</span>
 <span class="s2">  source:</span>
-<span class="s2">    path: alertreceiver/overlays/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">    path: alertreceiver/overlays/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span>
 <span class="s2">    repoURL: https://github.com/operate-first/apps.git</span>
 <span class="s2">    targetRevision: HEAD</span>
 <span class="s2">  syncPolicy:</span>
@@ -1683,7 +1683,7 @@ Global Flags:
 
 <span class="o">%</span><span class="k">store</span> text_input &gt;argocd/overlays/moc-infra/applications/envs/{CLUSTER_REGION}/{CLUSTER_NAME}/cluster-management/alertreceiver.yaml
 
-<span class="o">!</span><span class="nb">cd</span> argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/cluster-management <span class="o">&amp;&amp;</span> kustomize edit add resource alertreceiver.yaml
+<span class="o">!</span><span class="nb">cd</span><span class="w"> </span>argocd/overlays/moc-infra/applications/envs/<span class="o">{</span>CLUSTER_REGION<span class="o">}</span>/<span class="o">{</span>CLUSTER_NAME<span class="o">}</span>/cluster-management<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span>alertreceiver.yaml
 </pre></div>
 </div>
 </div>
@@ -1723,10 +1723,10 @@ Global Flags:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git status
-<span class="o">!</span>git add .
-<span class="o">!</span>git commit -m <span class="s2">&quot;feat(onboarding): Add cluster {CLUSTER_NAME}&quot;</span>
-<span class="o">!</span>git push
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git<span class="w"> </span>status
+<span class="o">!</span>git<span class="w"> </span>add<span class="w"> </span>.
+<span class="o">!</span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(onboarding): Add cluster {CLUSTER_NAME}&quot;</span>
+<span class="o">!</span>git<span class="w"> </span>push
 </pre></div>
 </div>
 </div>

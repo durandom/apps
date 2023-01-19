@@ -833,14 +833,14 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="adding-managed-cluster-to-argocd">
 <h1>Adding Managed Cluster to ArgoCD<a class="headerlink" href="#adding-managed-cluster-to-argocd" title="Permalink to this headline">#</a></h1>
 <p>To add a managed cluster to ArgoCD, create a <code class="docutils literal notranslate"><span class="pre">ManagedCluster</span></code> called <code class="docutils literal notranslate"><span class="pre">&lt;cluster_name&gt;.yaml</span></code> with the following contents:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster.open-cluster-management.io/v1</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManagedCluster</span><span class="w"></span>
-<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">cluster.open-cluster-management.io/clusterset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd-managed</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Uncomment the following line if you want to enable GitHub auth (via Operate First org) managed by Identitatem</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># authdeployment: primary</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster.open-cluster-management.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManagedCluster</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cluster.open-cluster-management.io/clusterset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd-managed</span>
+<span class="w">    </span><span class="c1"># Uncomment the following line if you want to enable GitHub auth (via Operate First org) managed by Identitatem</span>
+<span class="w">    </span><span class="c1"># authdeployment: primary</span>
 </pre></div>
 </div>
 <blockquote>

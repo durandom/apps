@@ -956,12 +956,12 @@ title="Print to PDF"
 <section id="missing-client-token">
 <h2>Missing Client token<a class="headerlink" href="#missing-client-token" title="Permalink to this headline">#</a></h2>
 <p>Error can be encountered when communicating locally via Vault CLI <em>or</em> via the Vault Pods. Error looks like the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Error making API request.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Error<span class="w"> </span>making<span class="w"> </span>API<span class="w"> </span>request.
 
-URL: GET http://127.0.0.1:8200/....
-Code: <span class="m">400</span>. Errors:
+URL:<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:8200/....
+Code:<span class="w"> </span><span class="m">400</span>.<span class="w"> </span>Errors:
 
-* missing client token
+*<span class="w"> </span>missing<span class="w"> </span>client<span class="w"> </span>token
 </pre></div>
 </div>
 <p>In both situations simply run <code class="docutils literal notranslate"><span class="pre">vault</span> <span class="pre">login</span></code> and enter your token. In the case of the Vault Pods, <code class="docutils literal notranslate"><span class="pre">oc</span> <span class="pre">rsh</span></code> in to the pod
@@ -1028,9 +1028,9 @@ the secretstore again and see if it successfully authenticates (by checking the 
 <section id="rejoin-a-vault-node-to-the-vault-cluster">
 <h3>Rejoin A Vault node to the Vault cluster<a class="headerlink" href="#rejoin-a-vault-node-to-the-vault-cluster" title="Permalink to this headline">#</a></h3>
 <p>To confirm all nodes are part of the Vault cluster, run the following on all vault pods in <code class="docutils literal notranslate"><span class="pre">vault</span></code> namespace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ oc <span class="nb">exec</span> -ti opf-vault-0 -n vault -- vault operator raft list-peers
-$ oc <span class="nb">exec</span> -ti opf-vault-1 -n vault -- vault operator raft list-peers
-$ oc <span class="nb">exec</span> -ti opf-vault-2 -n vault -- vault operator raft list-peers
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-0<span class="w"> </span>-n<span class="w"> </span>vault<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
+$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-1<span class="w"> </span>-n<span class="w"> </span>vault<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
+$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-2<span class="w"> </span>-n<span class="w"> </span>vault<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
 </pre></div>
 </div>
 <p><em>There are 3 possible outputs for each pod:</em></p>
@@ -1045,8 +1045,8 @@ If all nodes show (A), then no nodes are part of the cluster, identify one to be
 environment variable: <code class="docutils literal notranslate"><span class="pre">LEADER=http://&lt;pod-name&gt;.opf-vault-internal:8200</span></code> where <code class="docutils literal notranslate"><span class="pre">&lt;pod-name&gt;</span></code> corresponds to your chosen
 leader, for example: <code class="docutils literal notranslate"><span class="pre">LEADER=http://opf-vault-1.opf-vault-internal:8200</span></code>.</p>
 <p>Join the remaining pod (<code class="docutils literal notranslate"><span class="pre">opf-vault-0</span></code> and <code class="docutils literal notranslate"><span class="pre">opf-vault-2</span></code> in our example) to our chosen leader:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc <span class="nb">exec</span> -ti opf-vault-0 -- vault operator raft join http://opf-vault-1.opf-vault-internal:820
-oc <span class="nb">exec</span> -ti opf-vault-2 -- vault operator raft join http://opf-vault-1.opf-vault-internal:820
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-0<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>join<span class="w"> </span>http://opf-vault-1.opf-vault-internal:820
+oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-2<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>join<span class="w"> </span>http://opf-vault-1.opf-vault-internal:820
 </pre></div>
 </div>
 <p>Unseal each of these nodes, instructions <a class="reference external" href="https://www.operate-first.cloud/apps/content/vault_eso/unsealing_vault.html">here</a>.</p>
@@ -1054,32 +1054,32 @@ oc <span class="nb">exec</span> -ti opf-vault-2 -- vault operator raft join http
 Then the third node needs to be rejoined with the other nodes, identify the leader from the other 2 nodes by running:</p>
 <p>Let’s assume <code class="docutils literal notranslate"><span class="pre">opf-vault-0</span></code> and <code class="docutils literal notranslate"><span class="pre">opf-vault-2</span></code> are in the same cluster, and <code class="docutils literal notranslate"><span class="pre">opf-vault-1</span></code> is not (i.e. showing a single
 node output in <code class="docutils literal notranslate"><span class="pre">list-peers</span></code> command).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~ $ oc <span class="nb">exec</span> -ti opf-vault-1 -- vault operator raft list-peers
-Node                                    Address                                State       Voter
-----                                    -------                                -----       -----
-09b66090-446e-3974-bcb1-7080dacc07e7    opf-vault-0.opf-vault-internal:8201    follower    <span class="nb">true</span>
-56796c78-adac-b69e-8a62-c431b17c8b9b    opf-vault-2.opf-vault-internal:8201    leader      <span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~<span class="w"> </span>$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-1<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
+Node<span class="w">                                    </span>Address<span class="w">                                </span>State<span class="w">       </span>Voter
+----<span class="w">                                    </span>-------<span class="w">                                </span>-----<span class="w">       </span>-----
+09b66090-446e-3974-bcb1-7080dacc07e7<span class="w">    </span>opf-vault-0.opf-vault-internal:8201<span class="w">    </span>follower<span class="w">    </span><span class="nb">true</span>
+56796c78-adac-b69e-8a62-c431b17c8b9b<span class="w">    </span>opf-vault-2.opf-vault-internal:8201<span class="w">    </span>leader<span class="w">      </span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>When we do the same for <code class="docutils literal notranslate"><span class="pre">opf-vault-1</span></code> we see:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~ $ oc <span class="nb">exec</span> -ti opf-vault-1 -- vault operator raft list-peers
-Node                                    Address                                State       Voter
-----                                    -------                                -----       -----
-e58ab8b5-62d7-cc6f-27e0-79656bfb8ab7    opf-vault-1.opf-vault-internal:8201    leader      <span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~<span class="w"> </span>$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-1<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
+Node<span class="w">                                    </span>Address<span class="w">                                </span>State<span class="w">       </span>Voter
+----<span class="w">                                    </span>-------<span class="w">                                </span>-----<span class="w">       </span>-----
+e58ab8b5-62d7-cc6f-27e0-79656bfb8ab7<span class="w">    </span>opf-vault-1.opf-vault-internal:8201<span class="w">    </span>leader<span class="w">      </span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>In this example, it’s clear that <code class="docutils literal notranslate"><span class="pre">opf-vault-1</span></code> is not part of the main cluster. And <code class="docutils literal notranslate"><span class="pre">opf-vault-2</span></code> is the leader of the
 main cluster. So we want to rejoin <code class="docutils literal notranslate"><span class="pre">opf-vault-1</span></code> by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc <span class="nb">exec</span> -ti opf-vault-1 -- vault operator raft join http://opf-vault-2.opf-vault-internal:820
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-1<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>join<span class="w"> </span>http://opf-vault-2.opf-vault-internal:820
 </pre></div>
 </div>
 <p>Now all 3 nodes should show the following output:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ oc <span class="nb">exec</span> -ti opf-vault-1 -- vault operator raft list-peers
-Node                                    Address                                State       Voter
-----                                    -------                                -----       -----
-09b66090-446e-3974-bcb1-7080dacc07e7    opf-vault-0.opf-vault-internal:8201    follower    <span class="nb">true</span>
-56796c78-adac-b69e-8a62-c431b17c8b9b    opf-vault-2.opf-vault-internal:8201    leader      <span class="nb">true</span>
-e58ab8b5-62d7-cc6f-27e0-79656bfb8ab7    opf-vault-1.opf-vault-internal:8201    follower    <span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>opf-vault-1<span class="w"> </span>--<span class="w"> </span>vault<span class="w"> </span>operator<span class="w"> </span>raft<span class="w"> </span>list-peers
+Node<span class="w">                                    </span>Address<span class="w">                                </span>State<span class="w">       </span>Voter
+----<span class="w">                                    </span>-------<span class="w">                                </span>-----<span class="w">       </span>-----
+09b66090-446e-3974-bcb1-7080dacc07e7<span class="w">    </span>opf-vault-0.opf-vault-internal:8201<span class="w">    </span>follower<span class="w">    </span><span class="nb">true</span>
+56796c78-adac-b69e-8a62-c431b17c8b9b<span class="w">    </span>opf-vault-2.opf-vault-internal:8201<span class="w">    </span>leader<span class="w">      </span><span class="nb">true</span>
+e58ab8b5-62d7-cc6f-27e0-79656bfb8ab7<span class="w">    </span>opf-vault-1.opf-vault-internal:8201<span class="w">    </span>follower<span class="w">    </span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>Unseal <code class="docutils literal notranslate"><span class="pre">opf-vault1</span></code> by following the instructions <a class="reference external" href="https://www.operate-first.cloud/apps/content/vault_eso/unsealing_vault.html">here</a>.</p>

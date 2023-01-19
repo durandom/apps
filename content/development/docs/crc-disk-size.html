@@ -837,24 +837,24 @@ title="Print to PDF"
 <p>Below are steps to give your CRC instance more disk space. E.g. if you run out of ephemeral-space while experimenting with ODH.</p>
 <p>Unlike setting the nuber of CPUs or available memory increasing the disk image is not direcly supported by CRC.</p>
 <p>First you can check your current image size. Do it with CRC turned off:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>qemu-img info ~/.crc/machines/crc/crc <span class="p">|</span> grep <span class="s1">&#39;virtual size&#39;</span>
-virtual size: <span class="m">31</span> GiB <span class="o">(</span><span class="m">33285996544</span> bytes<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>qemu-img<span class="w"> </span>info<span class="w"> </span>~/.crc/machines/crc/crc<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;virtual size&#39;</span>
+virtual<span class="w"> </span>size:<span class="w"> </span><span class="m">31</span><span class="w"> </span>GiB<span class="w"> </span><span class="o">(</span><span class="m">33285996544</span><span class="w"> </span>bytes<span class="o">)</span>
 </pre></div>
 </div>
 <p>By default you will see something similar as above.</p>
 <p>Then you can grow the quemu size:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>qemu-img resize ~/.crc/machines/crc/crc +32G
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>qemu-img<span class="w"> </span>resize<span class="w"> </span>~/.crc/machines/crc/crc<span class="w"> </span>+32G
 </pre></div>
 </div>
 <p>Start CRC again:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>crc start
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>crc<span class="w"> </span>start
 </pre></div>
 </div>
 <p>Log is and grow the filesystem:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ssh -i ~/.crc/machines/crc/id_rsa core@192.168.130.11
-df -h /sysroot
-sudo xfs_growfs /sysroot
-df -h /sysroot
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-i<span class="w"> </span>~/.crc/machines/crc/id_rsa<span class="w"> </span>core@192.168.130.11
+df<span class="w"> </span>-h<span class="w"> </span>/sysroot
+sudo<span class="w"> </span>xfs_growfs<span class="w"> </span>/sysroot
+df<span class="w"> </span>-h<span class="w"> </span>/sysroot
 </pre></div>
 </div>
 <p>And we are done.</p>

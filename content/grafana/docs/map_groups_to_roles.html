@@ -890,19 +890,19 @@ the Grafana CR.</p>
 <p>Navigate to the Grafana CR, for the Grafana instance on the MOC environment <a class="reference external" href="https://github.com/operate-first/apps/blob/master/grafana/overlays/moc/smaug/grafana-oauth.yaml">here</a>.
 Find the attribute: <code class="docutils literal notranslate"><span class="pre">role_attribute_path</span></code> under <code class="docutils literal notranslate"><span class="pre">spec.config.auth.generic_oauth</span></code></p>
 <p>You will see something like the following:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">role_attribute_path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">    </span><span class="no">contains(groups[*], &#39;operate-first&#39;) &amp;&amp; &#39;Admin&#39; ||</span><span class="w"></span>
-<span class="w">    </span><span class="no">contains(groups[*], &#39;data-science&#39;) &amp;&amp; &#39;Viewer&#39; ||</span><span class="w"></span>
-<span class="w">    </span><span class="no">&#39;Deny&#39;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">role_attribute_path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">contains(groups[*], &#39;operate-first&#39;) &amp;&amp; &#39;Admin&#39; ||</span>
+<span class="w">    </span><span class="no">contains(groups[*], &#39;data-science&#39;) &amp;&amp; &#39;Viewer&#39; ||</span>
+<span class="w">    </span><span class="no">&#39;Deny&#39;</span>
 </pre></div>
 </div>
 <p>Add a line before <code class="docutils literal notranslate"><span class="pre">Deny</span></code> in the form of <code class="docutils literal notranslate"><span class="pre">contains(groups[*],</span> <span class="pre">'&lt;YOUR_OCP_GROUP&gt;')</span> <span class="pre">&amp;&amp;</span> <span class="pre">'&lt;GRAFANA_ROLE&gt;'</span> <span class="pre">||</span></code>.
 For example if we wanted to give the OCP group “my-team” the “Editor” Grafana role, we would update the field like so:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">role_attribute_path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">    </span><span class="no">contains(groups[*], &#39;operate-first&#39;) &amp;&amp; &#39;Admin&#39; ||</span><span class="w"></span>
-<span class="w">    </span><span class="no">contains(groups[*], &#39;data-science&#39;) &amp;&amp; &#39;Viewer&#39; ||</span><span class="w"></span>
-<span class="w">    </span><span class="no">contains(groups[*], &#39;my-team&#39;) &amp;&amp; &#39;Editor&#39; ||</span><span class="w"></span>
-<span class="w">    </span><span class="no">&#39;Deny&#39;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">role_attribute_path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">contains(groups[*], &#39;operate-first&#39;) &amp;&amp; &#39;Admin&#39; ||</span>
+<span class="w">    </span><span class="no">contains(groups[*], &#39;data-science&#39;) &amp;&amp; &#39;Viewer&#39; ||</span>
+<span class="w">    </span><span class="no">contains(groups[*], &#39;my-team&#39;) &amp;&amp; &#39;Editor&#39; ||</span>
+<span class="w">    </span><span class="no">&#39;Deny&#39;</span>
 </pre></div>
 </div>
 <p>Alternatively, if you do not want to create your own group and simply want read-only access to grafana, you can also just add yourself to the <a class="reference external" href="https://github.com/operate-first/apps/blob/master/cluster-scope/base/user.openshift.io/groups/grafana-viewer/group.yaml"><code class="docutils literal notranslate"><span class="pre">grafana-viewer</span></code> group</a>.</p>

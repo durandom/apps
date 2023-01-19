@@ -837,10 +837,10 @@ title="Print to PDF"
 <p>A number of miscellaneous errors can be resolved by just restarting the kernel.</p>
 <p>You can do this by running the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># retrieve the KERNEL_TYPE and DISPLAY_NAME by running</span>
-$ jupyter kernelspec list --json
+$<span class="w"> </span>jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list<span class="w"> </span>--json
 
 <span class="c1"># once these values are retrieved, run the following command, assign the env vars accordingly:</span>
-$ ipython kernel install --user --name<span class="o">=</span><span class="si">${</span><span class="nv">KERNELTYPE</span><span class="si">}</span> --display-name <span class="s1">&#39;${DISPLAY_NAME}&#39;</span>
+$<span class="w"> </span>ipython<span class="w"> </span>kernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="o">=</span><span class="si">${</span><span class="nv">KERNELTYPE</span><span class="si">}</span><span class="w"> </span>--display-name<span class="w"> </span><span class="s1">&#39;${DISPLAY_NAME}&#39;</span>
 </pre></div>
 </div>
 <p>Your kernel should then be restored and ready to be started by JupyterHub again.</p>

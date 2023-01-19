@@ -960,8 +960,8 @@ title="Print to PDF"
 <blockquote>
 <div><p>NOTE: that running the following will clear the passwords for the databases in superset, and will need to be re-entered</p>
 </div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ oc rsh <span class="si">${</span><span class="nv">SUPERSET_DB_POD</span><span class="si">}</span>
-sh-4.2$ psql
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>oc<span class="w"> </span>rsh<span class="w"> </span><span class="si">${</span><span class="nv">SUPERSET_DB_POD</span><span class="si">}</span>
+sh-4.2$<span class="w"> </span>psql
 <span class="nv">postgres</span><span class="o">=</span><span class="c1"># \connect supersetdb</span>
 <span class="nv">supersetdb</span><span class="o">=</span><span class="c1"># UPDATE public.dbs SET password = null;</span>
 <span class="nv">supersetdb</span><span class="o">=</span><span class="c1"># UPDATE public.dbs SET encrypted_extra = null;</span>

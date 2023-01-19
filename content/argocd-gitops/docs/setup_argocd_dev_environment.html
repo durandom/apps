@@ -936,20 +936,20 @@ title="Print to PDF"
 <h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">#</a></h2>
 <p>Create the project <code class="docutils literal notranslate"><span class="pre">argocd</span></code> and <code class="docutils literal notranslate"><span class="pre">argocd-test</span></code>. The latter will be used
 for deploying a dev application via ArgoCD.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc new-project argocd-test
-oc new-project argocd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc<span class="w"> </span>new-project<span class="w"> </span>argocd-test
+oc<span class="w"> </span>new-project<span class="w"> </span>argocd
 </pre></div>
 </div>
 <section id="deploy-argocd">
 <h3>Deploy ArgoCD<a class="headerlink" href="#deploy-argocd" title="Permalink to this headline">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:operate-first/apps.git
-<span class="nb">cd</span> apps
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:operate-first/apps.git
+<span class="nb">cd</span><span class="w"> </span>apps
 
 <span class="c1"># Deploy Cluster objects</span>
-kustomize build argocd/cluster-resources --enable-alpha-plugins <span class="p">|</span> oc apply -f -
+kustomize<span class="w"> </span>build<span class="w"> </span>argocd/cluster-resources<span class="w"> </span>--enable-alpha-plugins<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
 
 <span class="c1"># Deploy Non Cluster objects</span>
-kustomize build argocd/overlays/dev --enable-alpha-plugins <span class="p">|</span> oc apply -f -
+kustomize<span class="w"> </span>build<span class="w"> </span>argocd/overlays/dev<span class="w"> </span>--enable-alpha-plugins<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
 </pre></div>
 </div>
 </section>
@@ -991,7 +991,7 @@ kustomize build argocd/overlays/dev --enable-alpha-plugins <span class="p">|</sp
 </pre></div>
 </div>
 <p>The login command will open a browser window to take you through the SSO process. Then you can proceed with using the tool:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>argocd -h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>argocd<span class="w"> </span>-h
 </pre></div>
 </div>
 </section>

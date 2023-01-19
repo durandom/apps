@@ -899,105 +899,105 @@ Please explore <a class="reference external" href="https://github.com/operate-fi
 <li><p>Create a new directory which is named after the new Trino catalog you will add, in this example we’ll create
 a catalog called <code class="docutils literal notranslate"><span class="pre">some-catalog</span></code>, so we create:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="nv">$APPS_REPO</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$APPS_REPO</span>
 <span class="c1"># Replace dashes with underscores in catalog names, so some-catalog becomes some_catalog</span>
-$ mkdir apps/kfdefs/overlays/<span class="nv">$ENV</span>/<span class="nv">$CLUSTER</span>/trino/hive-metastores/some_catalog
+$<span class="w"> </span>mkdir<span class="w"> </span>apps/kfdefs/overlays/<span class="nv">$ENV</span>/<span class="nv">$CLUSTER</span>/trino/hive-metastores/some_catalog
 </pre></div>
 </div>
 <p>Now create a new file in this directory called <code class="docutils literal notranslate"><span class="pre">kustomization.yaml</span></code> and fill it out like so:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1beta1</span><span class="w"></span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span><span class="w"></span>
-<span class="nt">resources</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../../../../../../base/trino/hive-metastore-template</span><span class="w"></span>
-<span class="nt">patches</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span><span class="w"></span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog-name</span><span class="w"></span>
-<span class="w">    </span><span class="nt">patch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /metadata/name</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /metadata/labels/trino-catalog</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/selector/trino-catalog</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StatefulSet</span><span class="w"></span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog-name</span><span class="w"></span>
-<span class="w">    </span><span class="nt">patch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /metadata/name</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /metadata/labels/trino-catalog</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/selector/matchLabels/trino-catalog</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/serviceName</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/metadata/labels/trino-catalog</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: replace</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/selector/matchLabels/trino-catalog</span><span class="w"></span>
-<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: add</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span><span class="w"></span>
-<span class="w">        </span><span class="no">value:</span><span class="w"></span>
-<span class="w">          </span><span class="no">name: S3_ENDPOINT</span><span class="w"></span>
-<span class="w">          </span><span class="no">valueFrom:</span><span class="w"></span>
-<span class="w">            </span><span class="no">secretKeyRef:</span><span class="w"></span>
-<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_S3_ENDPOINT</span><span class="w"></span>
-<span class="w">              </span><span class="no">name: s3buckets</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: add</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span><span class="w"></span>
-<span class="w">        </span><span class="no">value:</span><span class="w"></span>
-<span class="w">          </span><span class="no">name: S3_ENDPOINT_URL_PREFIX</span><span class="w"></span>
-<span class="w">          </span><span class="no">valueFrom:</span><span class="w"></span>
-<span class="w">            </span><span class="no">secretKeyRef:</span><span class="w"></span>
-<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_S3_ENDPOINT_URL_PREFIX</span><span class="w"></span>
-<span class="w">              </span><span class="no">name: s3buckets</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: add</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span><span class="w"></span>
-<span class="w">        </span><span class="no">value:</span><span class="w"></span>
-<span class="w">          </span><span class="no">name: AWS_ACCESS_KEY_ID</span><span class="w"></span>
-<span class="w">          </span><span class="no">valueFrom:</span><span class="w"></span>
-<span class="w">            </span><span class="no">secretKeyRef:</span><span class="w"></span>
-<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_AWS_ACCESS_KEY_ID</span><span class="w"></span>
-<span class="w">              </span><span class="no">name: s3buckets</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: add</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span><span class="w"></span>
-<span class="w">        </span><span class="no">value:</span><span class="w"></span>
-<span class="w">          </span><span class="no">name: AWS_SECRET_ACCESS_KEY</span><span class="w"></span>
-<span class="w">          </span><span class="no">valueFrom:</span><span class="w"></span>
-<span class="w">            </span><span class="no">secretKeyRef:</span><span class="w"></span>
-<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_AWS_SECRET_ACCESS_KEY</span><span class="w"></span>
-<span class="w">              </span><span class="no">name: s3buckets</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: add</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span><span class="w"></span>
-<span class="w">        </span><span class="no">value:</span><span class="w"></span>
-<span class="w">          </span><span class="no">name: S3_BUCKET_NAME</span><span class="w"></span>
-<span class="w">          </span><span class="no">valueFrom:</span><span class="w"></span>
-<span class="w">            </span><span class="no">secretKeyRef:</span><span class="w"></span>
-<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_BUCKET</span><span class="w"></span>
-<span class="w">              </span><span class="no">name: s3buckets</span><span class="w"></span>
-<span class="w">      </span><span class="no">- op: add</span><span class="w"></span>
-<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span><span class="w"></span>
-<span class="w">        </span><span class="no">value:</span><span class="w"></span>
-<span class="w">          </span><span class="no">name: S3_DATA_DIR</span><span class="w"></span>
-<span class="w">          </span><span class="no">value: &quot;data&quot;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span>
+<span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../../../../../../base/trino/hive-metastore-template</span>
+<span class="nt">patches</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog-name</span>
+<span class="w">    </span><span class="nt">patch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /metadata/name</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /metadata/labels/trino-catalog</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /spec/selector/trino-catalog</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StatefulSet</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog-name</span>
+<span class="w">    </span><span class="nt">patch</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /metadata/name</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /metadata/labels/trino-catalog</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /spec/selector/matchLabels/trino-catalog</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /spec/serviceName</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /spec/template/metadata/labels/trino-catalog</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: replace</span>
+<span class="w">        </span><span class="no">path: /spec/selector/matchLabels/trino-catalog</span>
+<span class="w">        </span><span class="no">value: hive-metastore-&lt;catalog_name&gt;</span>
+<span class="w">      </span><span class="no">- op: add</span>
+<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span>
+<span class="w">        </span><span class="no">value:</span>
+<span class="w">          </span><span class="no">name: S3_ENDPOINT</span>
+<span class="w">          </span><span class="no">valueFrom:</span>
+<span class="w">            </span><span class="no">secretKeyRef:</span>
+<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_S3_ENDPOINT</span>
+<span class="w">              </span><span class="no">name: s3buckets</span>
+<span class="w">      </span><span class="no">- op: add</span>
+<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span>
+<span class="w">        </span><span class="no">value:</span>
+<span class="w">          </span><span class="no">name: S3_ENDPOINT_URL_PREFIX</span>
+<span class="w">          </span><span class="no">valueFrom:</span>
+<span class="w">            </span><span class="no">secretKeyRef:</span>
+<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_S3_ENDPOINT_URL_PREFIX</span>
+<span class="w">              </span><span class="no">name: s3buckets</span>
+<span class="w">      </span><span class="no">- op: add</span>
+<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span>
+<span class="w">        </span><span class="no">value:</span>
+<span class="w">          </span><span class="no">name: AWS_ACCESS_KEY_ID</span>
+<span class="w">          </span><span class="no">valueFrom:</span>
+<span class="w">            </span><span class="no">secretKeyRef:</span>
+<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_AWS_ACCESS_KEY_ID</span>
+<span class="w">              </span><span class="no">name: s3buckets</span>
+<span class="w">      </span><span class="no">- op: add</span>
+<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span>
+<span class="w">        </span><span class="no">value:</span>
+<span class="w">          </span><span class="no">name: AWS_SECRET_ACCESS_KEY</span>
+<span class="w">          </span><span class="no">valueFrom:</span>
+<span class="w">            </span><span class="no">secretKeyRef:</span>
+<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_AWS_SECRET_ACCESS_KEY</span>
+<span class="w">              </span><span class="no">name: s3buckets</span>
+<span class="w">      </span><span class="no">- op: add</span>
+<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span>
+<span class="w">        </span><span class="no">value:</span>
+<span class="w">          </span><span class="no">name: S3_BUCKET_NAME</span>
+<span class="w">          </span><span class="no">valueFrom:</span>
+<span class="w">            </span><span class="no">secretKeyRef:</span>
+<span class="w">              </span><span class="no">key: &lt;catalog_name_upercase&gt;_BUCKET</span>
+<span class="w">              </span><span class="no">name: s3buckets</span>
+<span class="w">      </span><span class="no">- op: add</span>
+<span class="w">        </span><span class="no">path: /spec/template/spec/containers/0/env/-</span>
+<span class="w">        </span><span class="no">value:</span>
+<span class="w">          </span><span class="no">name: S3_DATA_DIR</span>
+<span class="w">          </span><span class="no">value: &quot;data&quot;</span>
 </pre></div>
 </div>
 <p>Replace all instance of <code class="docutils literal notranslate"><span class="pre">&lt;catalog_name&gt;</span></code> with your catalog name, and all instance of <code class="docutils literal notranslate"><span class="pre">&lt;catalog_name_upercase&gt;</span></code> with your catalog
 name in upper case and underscores instead of dash/spaces. For example if your catalog name is <code class="docutils literal notranslate"><span class="pre">some-catalog</span></code> you can run the
 following <code class="docutils literal notranslate"><span class="pre">sed</span></code> command on your <code class="docutils literal notranslate"><span class="pre">kustomization.yaml</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sed -i <span class="s1">&#39;s/&lt;catalog_name&gt;/some-catalog/g&#39;</span> kustomization.yaml
-$ sed -i <span class="s1">&#39;s/&lt;catalog_name_upercase&gt;/SOME_CATALOG/g&#39;</span> kustomization.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/&lt;catalog_name&gt;/some-catalog/g&#39;</span><span class="w"> </span>kustomization.yaml
+$<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/&lt;catalog_name_upercase&gt;/SOME_CATALOG/g&#39;</span><span class="w"> </span>kustomization.yaml
 </pre></div>
 </div>
 <p>Also add this directory to the <code class="docutils literal notranslate"><span class="pre">kustomization.yaml</span></code> located at <code class="docutils literal notranslate"><span class="pre">kfdefs/overlays/$ENV/$CLUSTER/trino/hive-metastores</span></code>.</p>
@@ -1005,13 +1005,13 @@ $ sed -i <span class="s1">&#39;s/&lt;catalog_name_upercase&gt;/SOME_CATALOG/g&#3
 <blockquote>
 <div><p>Note you will need to use sops to edit this file with the appropriate gpg key</p>
 </div></blockquote>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># Fill these values out accordingly</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_AWS_ACCESS_KEY_ID</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_AWS_SECRET_ACCESS_KEY</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_BUCKET</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_REGION</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_S3_ENDPOINT</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_S3_ENDPOINT_URL_PREFIX</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># Fill these values out accordingly</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_AWS_ACCESS_KEY_ID</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_AWS_SECRET_ACCESS_KEY</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_BUCKET</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_REGION</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_S3_ENDPOINT</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;catalog_name_upercase&gt;_S3_ENDPOINT_URL_PREFIX</span><span class="p">:</span>
 </pre></div>
 </div>
 <p>Use the same value for <code class="docutils literal notranslate"><span class="pre">&lt;catalog_name_upercase&gt;</span></code> as used above. Fill out the values for these fields according to your
@@ -1019,20 +1019,20 @@ s3 bucket details.</p>
 <p>Next we need to update Trino Catalog configuration files.</p>
 <p>Navigate to: <code class="docutils literal notranslate"><span class="pre">apps/kfdefs/overlays/$ENV/$CLUSTER/trino/configs/catalogs/</span></code>, create a file called
 <code class="docutils literal notranslate"><span class="pre">&lt;catalog_name_underscored&gt;.properties</span></code>. With the following contents:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">connector.name=hive-hadoop2</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.metastore.uri=thrift://hive-metastore-&lt;catalog_name&gt;:9083</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.endpoint=${ENV:&lt;catalog_name_upercase&gt;_S3_ENDPOINT_URL_PREFIX}${ENV:&lt;catalog_name_upercase&gt;_S3_ENDPOINT}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.signer-type=S3SignerType</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.path-style-access=true</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.staging-directory=/tmp</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.ssl.enabled=false</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.sse.enabled=false</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.allow-drop-table=true</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.parquet.use-column-names=true</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.recursive-directories=true</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.non-managed-table-writes-enabled=true</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.aws-access-key=${ENV:&lt;catalog_name_upercase&gt;_AWS_ACCESS_KEY_ID}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">hive.s3.aws-secret-key=${ENV:&lt;catalog_name_upercase&gt;_AWS_SECRET_ACCESS_KEY}</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">connector.name=hive-hadoop2</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.metastore.uri=thrift://hive-metastore-&lt;catalog_name&gt;:9083</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.endpoint=${ENV:&lt;catalog_name_upercase&gt;_S3_ENDPOINT_URL_PREFIX}${ENV:&lt;catalog_name_upercase&gt;_S3_ENDPOINT}</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.signer-type=S3SignerType</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.path-style-access=true</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.staging-directory=/tmp</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.ssl.enabled=false</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.sse.enabled=false</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.allow-drop-table=true</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.parquet.use-column-names=true</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.recursive-directories=true</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.non-managed-table-writes-enabled=true</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.aws-access-key=${ENV:&lt;catalog_name_upercase&gt;_AWS_ACCESS_KEY_ID}</span>
+<span class="l l-Scalar l-Scalar-Plain">hive.s3.aws-secret-key=${ENV:&lt;catalog_name_upercase&gt;_AWS_SECRET_ACCESS_KEY}</span>
 </pre></div>
 </div>
 <p>Replace all <code class="docutils literal notranslate"><span class="pre">&lt;*&gt;</span></code> values same as above.</p>

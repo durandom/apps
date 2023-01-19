@@ -915,17 +915,17 @@ title="Print to PDF"
 <h1>OpenMetaData Deployment on Operate First<a class="headerlink" href="#openmetadata-deployment-on-operate-first" title="Permalink to this headline">#</a></h1>
 <p>The OpenMetaData (OM) deployment on Operate First leverages the <a class="reference external" href="https://docs.open-metadata.org/deploy/deploy-on-kubernetes">Helm k8s deployment</a> method. In order to stay
 consistent with our other services, the helm chart is converted to kustomize. This can be easily achieved by</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm repo add open-metadata https://helm.open-metadata.org/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>open-metadata<span class="w"> </span>https://helm.open-metadata.org/
 
 <span class="c1"># Get dependencies</span>
-helm pull open-metadata/openmetadata-dependencies
-tar -xvzf openmetadata-dependencies-<span class="si">${</span><span class="nv">chart</span><span class="p">-version</span><span class="si">}</span>&gt;.tgz
-helm template --name-template<span class="o">=</span>openmetadata-dependencies .
+helm<span class="w"> </span>pull<span class="w"> </span>open-metadata/openmetadata-dependencies
+tar<span class="w"> </span>-xvzf<span class="w"> </span>openmetadata-dependencies-<span class="si">${</span><span class="nv">chart</span><span class="p">-version</span><span class="si">}</span>&gt;.tgz
+helm<span class="w"> </span>template<span class="w"> </span>--name-template<span class="o">=</span>openmetadata-dependencies<span class="w"> </span>.
 
 <span class="c1"># Get openmetadata</span>
-helm pull open-metadata/openmetadata
-tar -xvzf openmetadata-<span class="si">${</span><span class="nv">chart</span><span class="p">-version</span><span class="si">}</span>.tgz
-helm template --name-template<span class="o">=</span>openmetadata .
+helm<span class="w"> </span>pull<span class="w"> </span>open-metadata/openmetadata
+tar<span class="w"> </span>-xvzf<span class="w"> </span>openmetadata-<span class="si">${</span><span class="nv">chart</span><span class="p">-version</span><span class="si">}</span>.tgz
+helm<span class="w"> </span>template<span class="w"> </span>--name-template<span class="o">=</span>openmetadata<span class="w"> </span>.
 </pre></div>
 </div>
 <p>Further additions/amendments are made to these renders. For the resulting manifests you can find them <a class="reference external" href="https://github.com/operate-first/apps/tree/master/openmetadata">here</a>.</p>
@@ -960,18 +960,18 @@ configuration can be found <a class="reference external" href="https://docs.open
 with OM via a JWT token that is generated via the OM UI.</p>
 <p>First, for OM to be able to generate tokens, it needs JWT configuration:</p>
 <p>This is documented <a class="reference external" href="https://docs.open-metadata.org/deployment/security/enable-jwt-tokens#enable-jwt-tokens">here</a>. You can find these fields in our configuration manifests <a class="reference external" href="https://github.com/open-metadata/OpenMetadata/blob/main/conf/openmetadata.yaml">here</a>.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jwtTokenConfiguration</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">rsapublicKeyFilePath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${RSA_PUBLIC_KEY_FILE_PATH:-&quot;&quot;}</span><span class="w"></span>
-<span class="w">  </span><span class="nt">rsaprivateKeyFilePath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${RSA_PRIVATE_KEY_FILE_PATH:-&quot;&quot;}</span><span class="w"></span>
-<span class="w">  </span><span class="nt">jwtissuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${JWT_ISSUER:-&quot;open-metadata.org&quot;}</span><span class="w"></span>
-<span class="w">  </span><span class="nt">keyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${JWT_KEY_ID:-&quot;Gb389a-9f76-gdjs-a92j-0242bk94356&quot;}</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">jwtTokenConfiguration</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rsapublicKeyFilePath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${RSA_PUBLIC_KEY_FILE_PATH:-&quot;&quot;}</span>
+<span class="w">  </span><span class="nt">rsaprivateKeyFilePath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${RSA_PRIVATE_KEY_FILE_PATH:-&quot;&quot;}</span>
+<span class="w">  </span><span class="nt">jwtissuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${JWT_ISSUER:-&quot;open-metadata.org&quot;}</span>
+<span class="w">  </span><span class="nt">keyId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${JWT_KEY_ID:-&quot;Gb389a-9f76-gdjs-a92j-0242bk94356&quot;}</span>
 </pre></div>
 </div>
 <p>Note the <code class="docutils literal notranslate"><span class="pre">RSA_PUBLIC_KEY_FILE_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">RSA_PRIVATE_KEY_FILE_PATH</span></code>, these are env variables made available in the
 deployment patch <a class="reference external" href="https://github.com/operate-first/apps/tree/master/openmetadata/overlays/osc/osc-cl2/patches">here</a>. The values were generated using <code class="docutils literal notranslate"><span class="pre">openssl</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl genrsa -out private_key.pem <span class="m">2048</span>
-openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem -out private_key.der -nocrypt
-openssl rsa -in private_key.pem -pubout -outform DER -out public_key.der
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>private_key.pem<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>pkcs8<span class="w"> </span>-topk8<span class="w"> </span>-inform<span class="w"> </span>PEM<span class="w"> </span>-outform<span class="w"> </span>DER<span class="w"> </span>-in<span class="w"> </span>private_key.pem<span class="w"> </span>-out<span class="w"> </span>private_key.der<span class="w"> </span>-nocrypt
+openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>private_key.pem<span class="w"> </span>-pubout<span class="w"> </span>-outform<span class="w"> </span>DER<span class="w"> </span>-out<span class="w"> </span>public_key.der
 </pre></div>
 </div>
 <p>Then add these to a k8s secret for consumption by the OM pod. Once configured you should be able to generate a new token
@@ -980,10 +980,10 @@ via OM ui.</p>
 needs to navigate to <code class="docutils literal notranslate"><span class="pre">Settings</span> <span class="pre">&gt;</span> <span class="pre">Bots</span> <span class="pre">&gt;</span> <span class="pre">ingestion-bot</span></code> and generate a new token from this ui. You will need to be
 using OM +0.11 to generate an infinite token, until then the longest expiry that can be selected is <em>7 days</em>.</p>
 <p>We set <code class="docutils literal notranslate"><span class="pre">OM_AUTH_JWT_TOKEN</span></code> in the OM pod <a class="reference external" href="https://github.com/operate-first/apps/tree/master/openmetadata/overlays/osc/osc-cl2/patches">here</a>. We also set <code class="docutils literal notranslate"><span class="pre">AIRFLOW_AUTH_PROVIDER</span></code> as such:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AIRFLOW_AUTH_PROVIDER</span><span class="w"></span>
-<span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openmetadata</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OM_AUTH_JWT_TOKEN</span><span class="w"></span>
-<span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;omitted&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AIRFLOW_AUTH_PROVIDER</span>
+<span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openmetadata</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OM_AUTH_JWT_TOKEN</span>
+<span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;omitted&gt;</span>
 </pre></div>
 </div>
 </section>

@@ -951,13 +951,13 @@ title="Print to PDF"
 <section id="set-up-your-environment">
 <h3>Set up your environment<a class="headerlink" href="#set-up-your-environment" title="Permalink to this headline">#</a></h3>
 <p>Open a terminal, and set up environment by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">VAULT_ADDR</span><span class="o">=</span><span class="s2">&quot;https://vault-ui-vault.apps.smaug.na.operate-first.cloud&quot;</span>
-<span class="nb">export</span> <span class="nv">ENV</span><span class="o">=</span>&lt;environment-name&gt;  <span class="c1"># Associated env where secrets will need to be created (e.g. moc, osc, emea)</span>
-<span class="nb">export</span> <span class="nv">CLUSTER</span><span class="o">=</span>&lt;cluster-name&gt;  <span class="c1"># Associated ocp cluster where secrets will need to be created (e.g. smaug, infra,..)</span>
-<span class="nb">export</span> <span class="nv">OCP_GROUP</span><span class="o">=</span>&lt;ocp-group-name&gt;
-<span class="nb">export</span> <span class="nv">NAMESPACE_1</span><span class="o">=</span>&lt;ocp-namespace&gt;
-<span class="nb">export</span> <span class="nv">NAMESPACE_2</span><span class="o">=</span>&lt;ocp-namespace-2&gt; <span class="c1"># Optional</span>
-<span class="nb">export</span> <span class="nv">NAMESPACE_3</span><span class="o">=</span>&lt;ocp-namespace-3&gt; <span class="c1"># Optional</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">VAULT_ADDR</span><span class="o">=</span><span class="s2">&quot;https://vault-ui-vault.apps.smaug.na.operate-first.cloud&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ENV</span><span class="o">=</span>&lt;environment-name&gt;<span class="w">  </span><span class="c1"># Associated env where secrets will need to be created (e.g. moc, osc, emea)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CLUSTER</span><span class="o">=</span>&lt;cluster-name&gt;<span class="w">  </span><span class="c1"># Associated ocp cluster where secrets will need to be created (e.g. smaug, infra,..)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OCP_GROUP</span><span class="o">=</span>&lt;ocp-group-name&gt;
+<span class="nb">export</span><span class="w"> </span><span class="nv">NAMESPACE_1</span><span class="o">=</span>&lt;ocp-namespace&gt;
+<span class="nb">export</span><span class="w"> </span><span class="nv">NAMESPACE_2</span><span class="o">=</span>&lt;ocp-namespace-2&gt;<span class="w"> </span><span class="c1"># Optional</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NAMESPACE_3</span><span class="o">=</span>&lt;ocp-namespace-3&gt;<span class="w"> </span><span class="c1"># Optional</span>
 ...
 </pre></div>
 </div>
@@ -966,23 +966,23 @@ title="Print to PDF"
 add env vars <code class="docutils literal notranslate"><span class="pre">${NAMESPACE_2},</span> <span class="pre">${NAMESPACE_3},...</span></code> accordingly</p>
 </div></blockquote>
 <p>Log in to vault:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault login -method<span class="o">=</span>token
-Token <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;YOUR-TOKEN&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>token
+Token<span class="w"> </span><span class="o">(</span>will<span class="w"> </span>be<span class="w"> </span>hidden<span class="o">)</span>:<span class="w"> </span>&lt;YOUR-TOKEN&gt;
 </pre></div>
 </div>
 </section>
 <section id="create-secretstore">
 <h3>Create secretstore<a class="headerlink" href="#create-secretstore" title="Permalink to this headline">#</a></h3>
 <p>Run the following commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/operate-first/apps.git
-<span class="nb">cd</span> apps/cluster-scope/overlays/prod/<span class="si">${</span><span class="nv">ENV</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CLUSTER</span><span class="si">}</span>/secret-mgmt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/operate-first/apps.git
+<span class="nb">cd</span><span class="w"> </span>apps/cluster-scope/overlays/prod/<span class="si">${</span><span class="nv">ENV</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CLUSTER</span><span class="si">}</span>/secret-mgmt
 </pre></div>
 </div>
 <p>Create namespace resources (repeat for all <code class="docutils literal notranslate"><span class="pre">${NAMESPACE_N}</span></code>).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir <span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span><span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt;EOF &gt;&gt;kustomization.yaml</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;&gt;kustomization.yaml</span>
 <span class="s">apiVersion: kustomize.config.k8s.io/v1beta1</span>
 <span class="s">kind: Kustomization</span>
 <span class="s">namespace: ${NAMESPACE_1}</span>
@@ -994,7 +994,7 @@ Token <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;YOUR-T
 </pre></div>
 </div>
 <p>Create the opf-vault-store.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt;EOF &gt;&gt;opf-vault-store.yaml</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;&gt;opf-vault-store.yaml</span>
 <span class="s">apiVersion: external-secrets.io/v1beta1</span>
 <span class="s">kind: SecretStore</span>
 <span class="s">metadata:</span>
@@ -1009,7 +1009,7 @@ Token <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;YOUR-T
 </pre></div>
 </div>
 <p>Add to parent kustomization:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> kustomize edit add resource <span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>kustomize<span class="w"> </span>edit<span class="w"> </span>add<span class="w"> </span>resource<span class="w"> </span><span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span>
 </pre></div>
 </div>
 <p><em>Commit your changes and make a PR.</em></p>
@@ -1024,7 +1024,7 @@ Token <span class="o">(</span>will be hidden<span class="o">)</span>: &lt;YOUR-T
 <div><p>Note:  if you are adding support for multiple namespaces to be able to read secrets from vault
 then update the rules file below as per instructions in the comments</p>
 </div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt;EOF &gt;&gt;user_policy.hcl</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;&gt;user_policy.hcl</span>
 <span class="s">path &quot;k8s_secrets/data/${ENV}/${CLUSTER}/$NAMESPACE_1/*&quot; {</span>
 <span class="s">  capabilities = [&quot;create&quot;, &quot;read&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;, &quot;list&quot;, &quot;sudo&quot;]</span>
 <span class="s">}</span>
@@ -1042,20 +1042,20 @@ then update the rules file below as per instructions in the comments</p>
 </pre></div>
 </div>
 <p>Run the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault policy write <span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span> user_policy.hcl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>policy<span class="w"> </span>write<span class="w"> </span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="w"> </span>user_policy.hcl
 </pre></div>
 </div>
 </section>
 <section id="create-vault-group">
 <h3>Create Vault group<a class="headerlink" href="#create-vault-group" title="Permalink to this headline">#</a></h3>
 <p>Create the vault group and associate the Vault oidc login with this ocp group.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault write identity/group <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2">&quot;</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&quot;external&quot;</span> <span class="se">\</span>
-       <span class="nv">policies</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-       <span class="nv">metadata</span><span class="o">=</span><span class="nv">responsibility</span><span class="o">=</span><span class="s2">&quot;Vault </span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2"> users&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>write<span class="w"> </span>identity/group<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;external&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">policies</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span><span class="nv">metadata</span><span class="o">=</span><span class="nv">responsibility</span><span class="o">=</span><span class="s2">&quot;Vault </span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2"> users&quot;</span>
 
-vault write identity/group-alias <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-     <span class="nv">mount_accessor</span><span class="o">=</span><span class="k">$(</span>vault auth list -format<span class="o">=</span>json  <span class="p">|</span> jq -r <span class="s1">&#39;.&quot;oidc/&quot;.accessor&#39;</span><span class="k">)</span> <span class="se">\</span>
-     <span class="nv">canonical_id</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>vault <span class="nb">read</span> /identity/group/name/<span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span> -format<span class="o">=</span>json <span class="p">|</span> jq -r <span class="s1">&#39;.data.id&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+vault<span class="w"> </span>write<span class="w"> </span>identity/group-alias<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">mount_accessor</span><span class="o">=</span><span class="k">$(</span>vault<span class="w"> </span>auth<span class="w"> </span>list<span class="w"> </span>-format<span class="o">=</span>json<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.&quot;oidc/&quot;.accessor&#39;</span><span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">canonical_id</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>vault<span class="w"> </span><span class="nb">read</span><span class="w"> </span>/identity/group/name/<span class="si">${</span><span class="nv">OCP_GROUP</span><span class="si">}</span><span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.data.id&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -1063,7 +1063,7 @@ vault write identity/group-alias <span class="nv">name</span><span class="o">=</
 <section id="verify">
 <h2>Verify<a class="headerlink" href="#verify" title="Permalink to this headline">#</a></h2>
 <p>Create a secret in this location:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault kv put k8s_secrets/<span class="si">${</span><span class="nv">ENV</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CLUSTER</span><span class="si">}</span>/<span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span>/example-secret <span class="nv">passcode</span><span class="o">=</span>my-long-passcode
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vault<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>k8s_secrets/<span class="si">${</span><span class="nv">ENV</span><span class="si">}</span>/<span class="si">${</span><span class="nv">CLUSTER</span><span class="si">}</span>/<span class="si">${</span><span class="nv">NAMESPACE_1</span><span class="si">}</span>/example-secret<span class="w"> </span><span class="nv">passcode</span><span class="o">=</span>my-long-passcode
 </pre></div>
 </div>
 <p>Ask a user from the group <code class="docutils literal notranslate"><span class="pre">${OCP_GROUP}</span></code> if they can login via OIDC authentication method and access:</p>
